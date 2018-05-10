@@ -1,0 +1,36 @@
+Code,Name,Name KH,Category Code,Unit ID,Cost,Price,Alert Quantity, Tax Rate Name,Tax Method,Subcategory Code,Product Variants Separated by |,Supplier1(No),Supplier2(No),Supplier3(No),Supplier4(No),Supplier5(No),Custom Field 1,Custom Field 2,Custom Field 3,Custom Field 4,Custom Field 5,Custom Field 6,Image,Type(standard or service)
+SG00001863,TP3823Blu5(2-3y)2-7y,,Shirt Girl,1,,19.9,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00001864,TP3823Blu7(3-4y)2-7y,,Shirt Girl,1,,19.9,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00001865,TP3823Blu9(4-5y)2-7y,,Shirt Girl,1,,19.9,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00001866,TP3823Blu11(5-6y)2-7y,,Shirt Girl,1,,19.9,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00001867,TP3823Blu13(6-7y)2-7y,,Shirt Girl,1,,19.9,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001394,TP3812Pin5(2-3y)2-7y,,Trouser Girl,1,,17.9,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001395,TP3812Pin7(3-4y)2-7y,,Trouser Girl,1,,17.9,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001396,TP3812Pin9(4-5y)2-7y,,Trouser Girl,1,,17.9,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001397,TP3812Pin11(5-6y)2-7y,,Trouser Girl,1,,17.9,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001398,TP3812Pin13(6-7y)2-7y,,Trouser Girl,1,,17.9,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003198,TP6403Blu5(2-3y)2-7y,,Dress,1,,35,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003199,TP6403Blu7(3-4y)2-7y,,Dress,1,,35,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003200,TP6403Blu9(4-5y)2-7y,,Dress,1,,35,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003201,TP6403Blu11(5-6y)2-7y,,Dress,1,,35,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003202,TP6403Blu13(6-7y)2-7y,,Dress,1,,35,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001399,TP6578Blu5(2-3y)2-7y,,Trouser Girl,1,,22.8,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001400,TP6578Blu7(3-4y)2-7y,,Trouser Girl,1,,22.8,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001401,TP6578Blu9(4-5y)2-7y,,Trouser Girl,1,,22.8,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001402,TP6578Blu11(5-6y)2-7y,,Trouser Girl,1,,22.8,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001403,TP6578Blu13(6-7y)2-7y,,Trouser Girl,1,,22.8,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00001868,TP6446Pin5(2-3y)2-7y,,Shirt Girl,1,,22.5,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00001869,TP6446Pin7(3-4y)2-7y,,Shirt Girl,1,,22.5,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00001870,TP6446Pin9(4-5y)2-7y,,Shirt Girl,1,,22.5,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00001871,TP6446Pin11(5-6y)2-7y,,Shirt Girl,1,,22.5,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00001872,TP6446Pin13(6-7y)2-7y,,Shirt Girl,1,,22.5,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001404,TP6677XT-Pin5(2-3y)2-7y,,Trouser Girl,1,,19.9,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001405,TP6677XT-Pin7(3-4y)2-7y,,Trouser Girl,1,,19.9,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001406,TP6677XT-Pin9(4-5y)2-7y,,Trouser Girl,1,,19.9,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001407,TP6677XT-Pin11(5-6y)2-7y,,Trouser Girl,1,,19.9,,,,,,,,,,,,,,,,,no_image.png,standard
+TG00001408,TP6677XT-Pin13(6-7y)2-7y,,Trouser Girl,1,,19.9,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003203,TP6406Yel5(2-3y)2-7y,,Dress,1,,29.9,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003204,TP6406Yel7(3-4y)2-7y,,Dress,1,,29.9,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003205,TP6406Yel9(4-5y)2-7y,,Dress,1,,29.9,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003206,TP6406Yel11(5-6y)2-7y,,Dress,1,,29.9,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003207,TP6406Yel13(6-7y)2-7y,,Dress,1,,29.9,,,,,,,,,,,,,,,,,no_image.png,standard
