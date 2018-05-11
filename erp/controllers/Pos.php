@@ -862,7 +862,7 @@ class Pos extends MY_Controller
                 $payment = array();
             }
 
-            $this->erp->print_arrays($data, $products, $payment);
+            //$this->erp->print_arrays($data, $products, $payment);
         }
 		
         if ($this->form_validation->run() == true ) {
