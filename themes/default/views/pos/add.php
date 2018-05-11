@@ -3028,29 +3028,26 @@ var lang = {unexpected_value: '<?=lang('unexpected_value');?>', select_above: '<
 				suspend.html('<input type="hidden" name="delete_id" value="<?php echo $sid; ?>" />');
 				suspend.appendTo("#hidesuspend");
 				<?php } ?>
-				var twt = formatDecimal(((total + total_tax) - order_discount) + parseFloat(total_shipping));
+				var twt = (((total + total_tax) - order_discount) + parseFloat(total_shipping));
 
 				if (an == 1) {
 					bootbox.alert('<?= lang('x_total'); ?>');
 					return false;
 				}
-				gtotal = formatDecimal(twt);
-
+				gtotal = (twt);
 
 				<?php if($pos_settings->rounding) { ?>
-
-				round_total = roundNumber(gtotal, <?=$pos_settings->rounding?>);
-				var rounding = formatDecimal(0 - (gtotal - round_total));
-				var total_p = formatMoney(round_total) + ' (' + formatMoney(rounding) + ')';
-				$('#twt').text(total_p);
-
-				$('#quick-payable').text(round_total);
-				$('#payable_amount').val(round_total);
+                    round_total     = roundNumber(gtotal, <?=$pos_settings->rounding?>);
+                    var rounding    = formatDecimal(0 - (gtotal - round_total));
+                    var total_p     = formatMoney(round_total) + ' (' + formatMoney(rounding) + ')';
+                    $('#twt').text(total_p);
+                    $('#quick-payable').text(round_total);
+                    $('#payable_amount').val(formatMoney(round_total));
 				<?php } else { ?>
-				$('#twt').text(formatMoney(gtotal));
-				$('#quick-payable').text(gtotal);
-				$('#payable_amount').val(gtotal);
-				// $('#amount_1').val(gtotal);
+                    $('#twt').text(formatMoney(gtotal));
+                    $('#quick-payable').text(formatMoney(gtotal));
+                    $('#payable_amount').val(formatMoney(gtotal));
+                    // $('#amount_1').val(gtotal);
 				<?php } ?>
 				$('#product_note').val($('#get_not').text());
 				$('#item_count').text(count - 1);
@@ -3067,8 +3064,7 @@ var lang = {unexpected_value: '<?=lang('unexpected_value');?>', select_above: '<
 				$("#saleman").trigger('change');
 				$("#delivery_by").trigger('change');
 
-
-				autoCalcurrencies(gtotal);
+				autoCalcurrencies(formatMoney(gtotal));
 			}else{
 				var val = '';
 				$('.sdiscount').each(function(){
@@ -3080,9 +3076,9 @@ var lang = {unexpected_value: '<?=lang('unexpected_value');?>', select_above: '<
 				});
 				if(val == 0){
 					<?php if ($sid) { ?>
-					suspend = $('<span></span>');
-					suspend.html('<input type="hidden" name="delete_id" value="<?php echo $sid; ?>" />');
-					suspend.appendTo("#hidesuspend");
+                        suspend = $('<span></span>');
+                        suspend.html('<input type="hidden" name="delete_id" value="<?php echo $sid; ?>" />');
+                        suspend.appendTo("#hidesuspend");
 					<?php } ?>
 					var twt = formatDecimal((total + invoice_tax) - order_discount);
 					if (an == 1) {
@@ -3091,16 +3087,16 @@ var lang = {unexpected_value: '<?=lang('unexpected_value');?>', select_above: '<
 					}
 					gtotal = formatDecimal(twt);
 					<?php if($pos_settings->rounding) { ?>
-					round_total = roundNumber(gtotal, <?=$pos_settings->rounding?>);
-					var rounding = formatDecimal(0 - (gtotal - round_total));
-					var total_p = formatMoney(round_total) + ' (' + formatMoney(rounding) + ')';
-					$('#twt').text(total_p);
-					$('#quick-payable').text(round_total);
-					$('#payable_amount').val(round_total);
+                        round_total = roundNumber(gtotal, <?=$pos_settings->rounding?>);
+                        var rounding = formatDecimal(0 - (gtotal - round_total));
+                        var total_p = formatMoney(round_total) + ' (' + formatMoney(rounding) + ')';
+                        $('#twt').text(total_p);
+                        $('#quick-payable').text(round_total);
+                        $('#payable_amount').val(formatMoney(round_total));
 					<?php } else { ?>
-					$('#twt').text(formatMoney(gtotal));
-					$('#quick-payable').text(gtotal);
-					$('#payable_amount').val(gtotal);
+                        $('#twt').text(formatMoney(gtotal));
+                        $('#quick-payable').text(gtotal);
+                        $('#payable_amount').val(formatMoney(gtotal));
 					<?php } ?>
 					$('#product_note').val($('#get_not').text());
 					$('#item_count').text(count - 1);
@@ -3118,7 +3114,7 @@ var lang = {unexpected_value: '<?=lang('unexpected_value');?>', select_above: '<
 					$("#saleman").trigger('change');
 					$("#delivery_by").trigger('change');
 
-					autoCalcurrencies(gtotal);
+					autoCalcurrencies(formatMoney(gtotal));
 				}else{
 					bootbox.prompt("Please insert password", function(result){
 						$.ajax({
@@ -4607,16 +4603,16 @@ var lang = {unexpected_value: '<?=lang('unexpected_value');?>', select_above: '<
 
 		$(document).on('keyup','#amount_1, #amount_2, #amount_3, #amount_4, #amount_5, .currencies_payment', function(){
 			//var total_amount = $('#quick-payable').text()-0;
-			var total_amount = $('#payable_amount').val()-0;
-			var us_paid = $('#amount_1').val()-0;
-			var us_paid2 = $('#amount_2').val()? $('#amount_2').val()-0 : 0;
-			var us_paid3 = $('#amount_3').val()? $('#amount_3').val()-0 : 0;
-			var us_paid4 = $('#amount_4').val()? $('#amount_4').val()-0 : 0;
-			var us_paid5 = $('#amount_5').val()? $('#amount_5').val()-0 : 0;
-			var other_paid = other_curr_paid_2_us();
-			var balance = total_amount - (us_paid + us_paid2 + us_paid3 + us_paid4 + us_paid5 + other_paid);
-			var ch = (balance).toFixed(3);
-			var str = ch.split('.');
+			var total_amount    = $('#payable_amount').val()-0;
+			var us_paid         = $('#amount_1').val()-0;
+			var us_paid2        = $('#amount_2').val()? $('#amount_2').val()-0 : 0;
+			var us_paid3        = $('#amount_3').val()? $('#amount_3').val()-0 : 0;
+			var us_paid4        = $('#amount_4').val()? $('#amount_4').val()-0 : 0;
+			var us_paid5        = $('#amount_5').val()? $('#amount_5').val()-0 : 0;
+			var other_paid      = other_curr_paid_2_us();
+			var balance         = total_amount - (us_paid + us_paid2 + us_paid3 + us_paid4 + us_paid5 + other_paid);
+			var ch              = (balance).toFixed(3);
+			var str             = ch.split('.');
 			if(balance > 0){
 				autoCalremain(balance);
 				autoCalchange(0);

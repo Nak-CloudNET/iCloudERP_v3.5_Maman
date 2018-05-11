@@ -1580,11 +1580,12 @@ function loadItems() {
 				total_unitprice += formatDecimal((parseFloat(real_unit_price )));
 			}
 			if (item_promotion == 1){
-				total += formatDecimal(((parseFloat(real_unit_price - subtotal_discount) + parseFloat(pr_tax_val)) * parseFloat(item_qty))-subtotal_discount);
+				total += (((parseFloat(real_unit_price - subtotal_discount) + parseFloat(pr_tax_val)) * parseFloat(item_qty))-subtotal_discount);
 			}else{
-				total += formatDecimal(((parseFloat(item_price) + parseFloat(pr_tax_val)) * parseFloat(item_qty))-subtotal_discount);
+				total += (((parseFloat(item_price) + parseFloat(pr_tax_val)) * parseFloat(item_qty))-subtotal_discount);
 
 			}
+
 			count += parseFloat(Math.abs(item_qty));
 			an++;
 
@@ -1720,7 +1721,7 @@ function loadItems() {
 
 		// Order level tax calculations
 
-		total = formatDecimal(total);
+		total = (total);
 		product_tax = formatDecimal(product_tax);
 		total_discount = formatDecimal(order_discount + product_discount);
 		var kh_rate = __getItem('exchange_kh');
@@ -1730,6 +1731,7 @@ function loadItems() {
 		$('#total').text(formatMoney(total));
 		$('#titems').text((an - 1) + ' (' + (parseFloat(count) - 1) + ')');
 		$('#total_items').val((parseFloat(count) - 1));
+
 		$('#gtotal').text(formatMoney(gtotal));
 
 		var gtotal_kh = parseFloat(gtotal * kh_rate );

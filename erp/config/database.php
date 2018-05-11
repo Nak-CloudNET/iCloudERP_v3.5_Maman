@@ -65,7 +65,7 @@
                            'hostname' => 'localhost',
                            'username' => 'root',
                            'password' => '',
-                           'database' => 'maman',
+                           'database' => 'iclouderp_v3_5_maman',
                            'dbdriver' => 'mysqli',
                            'dbprefix' => 'erp_', 
                            'pconnect' => FALSE,
