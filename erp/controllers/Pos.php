@@ -684,7 +684,7 @@ class Pos extends MY_Controller
                 'order_tax'         => $order_tax,
                 'total_tax'         => $total_tax,
                 'shipping'          => $this->erp->formatDecimal($shipping),
-                'grand_total'       => $this->erp->formatDecimal($grand_total),
+                'grand_total'       => $grand_total,
                 'total_items'       => $total_items,
                 'sale_status'       => $sale_status,
                 'payment_status'    => $payment_status,
@@ -752,7 +752,7 @@ class Pos extends MY_Controller
 								'biller_id'				=> $biller_id,
 								'date' 					=> $date,
 								'reference_no' 			=> (($_POST['paid_by'][$r] == 'deposit' || $_POST['paid_by'][$r] == 'depreciation')? $reference : $this->site->getReference('sp', $biller_id)),
-								'amount' 				=> $this->erp->formatDecimal($amount),
+								'amount' 				=> $amount,
 								'paid_by' 				=> $_POST['paid_by'][$r],
                                 'cheque_no' 			=> $_POST['cheque_no'][$r],
 								'cc_no' 				=> ($_POST['paid_by'][$r] == 'gift_card' ? $_POST['paying_gift_card_no'][$r] : $_POST['cc_no'][$r]),
@@ -775,7 +775,7 @@ class Pos extends MY_Controller
 								'biller_id'				=> $biller_id,
 								'date' 					=> $date,
 								'reference_no' 			=> (($_POST['paid_by'][$r] == 'deposit' || $_POST['paid_by'][$r] == 'depreciation')? $reference : $this->site->getReference('sp', $biller_id)),
-								'amount' 				=> $this->erp->formatDecimal($amount),
+								'amount' 				=> $amount,
 								'paid_by' 				=> $_POST['paid_by'][$r],
 								'cheque_no' 			=> $_POST['cheque_no'][$r],
 								'cc_no' 				=> ($_POST['paid_by'][$r] == 'gift_card' ? $_POST['paying_gift_card_no'][$r] : $_POST['cc_no'][$r]),
@@ -788,7 +788,7 @@ class Pos extends MY_Controller
 								'type' 					=> 'received',
 								'note' 					=> $_POST['payment_note'][$r],
 								'pos_paid' 				=> $_POST['amount'][$r],
-								'pos_balance' 			=> $this->erp->formatDecimal($pos_b - $grand_total),
+								'pos_balance' 			=> ($pos_b - $grand_total),
 								'pos_paid_other' 		=> $_POST['other_cur_paid'][$r],
 								'pos_paid_other_rate' 	=> $cur_rate->rate,
 								'bank_account' 			=> $bank_account[$r]
@@ -861,8 +861,6 @@ class Pos extends MY_Controller
             if (!isset($payment) || empty($payment)) {
                 $payment = array();
             }
-
-            //$this->erp->print_arrays($data, $products, $payment);
         }
 		
         if ($this->form_validation->run() == true ) {

@@ -1,0 +1,3 @@
+Company,Code,Name,Email,Phone,Address,City,State,Postal Code,Country,Vat No,CF 1,CF 2,CF 3,CF 4,CF 5,CF 6
+General,SUP-0001,General Supplier,general_support@general.com,012 24 11 87,Taman Desa,Kuala Lumpur,WP,58100,Malaysia,,,,,,,
+Default,SUP-0002,Default Supplier,default_support@default.com,013 24 11 87,Taman Desa,Phnom Penh,PP,58101,Cambodia,,,,,,,
