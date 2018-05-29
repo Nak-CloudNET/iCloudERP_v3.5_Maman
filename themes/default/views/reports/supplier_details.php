@@ -69,6 +69,18 @@
                                 ?>
                             </div>
                         </div>
+						<div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="biller"><?= lang("biller"); ?></label>
+                                <?php
+                                $bl[""] = "";
+                                foreach ($billers as $biller) {
+                                    $bl[$biller->id] = $biller->company != '-' ? $biller->company : $biller->name;
+                                }
+                                echo form_dropdown('biller', $bl, (isset($_POST['biller']) ? $_POST['biller'] : ""), 'class="form-control" id="biller" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("biller") . '"');
+                                ?>
+                            </div>
+                        </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <?= lang("warehouse", "warehouse") ?>
@@ -136,7 +148,7 @@
                         </tr>
                         </thead>
                         <tbody>
-							<?php
+							<?php							
 							$grand = 0 ;
 							$gqty = 0;
 							$wid = $this->reports_model->getWareByUserID();
@@ -147,6 +159,10 @@
 							}
 							if($reference){
 								$this->db->where("reference_no",$reference);
+							}
+							
+							if($biller_id){
+								$this->db->where("biller_id", $biller_id);
 							}
 							
 							if($product_id){
@@ -172,17 +188,20 @@
 											<tr>
 												<td colspan="9" style="background:#F0F8FF;"><b><?=$row->supplier?></b></td>
 											</tr>
-											<?php
-												$this->db->select("product_id,product_name,erp_purchase_items.quantity,real_unit_cost,unit_cost,erp_purchases.supplier_id,reference_no,erp_purchase_items.date,transaction_type,option_id,unit,net_shipping,warehouses.name as warehouse_name")->join("erp_purchases","erp_purchases.id = erp_purchase_items.purchase_id","LEFT")->join("erp_products","erp_products.id = erp_purchase_items.product_id","LEFT")->where("erp_purchase_items.transaction_type = 'PURCHASE'");
+											<?php 
+                                                $this->db->select("product_id,product_name,erp_purchase_items.quantity,real_unit_cost,unit_cost,erp_purchases.supplier_id,reference_no,erp_purchase_items.date,transaction_type,option_id,unit,net_shipping,warehouses.name as warehouse_name")->join("erp_purchases","erp_purchases.id = erp_purchase_items.purchase_id","LEFT")->join("erp_products","erp_products.id = erp_purchase_items.product_id","LEFT")->where("erp_purchase_items.transaction_type = 'PURCHASE'");
 												$this->db->join('warehouses','warehouses.id = purchases.warehouse_id');
 												if($reference){
-													$this->db->where("reference_no",$reference);
+													$this->db->where("reference_no", $reference);
 												}
 												if($supplier){
-													$this->db->where("erp_purchases.supplier_id",$supplier);
+													$this->db->where("erp_purchases.supplier_id", $supplier);
+												}
+												if($biller_id){
+													$this->db->where("erp_purchases.biller_id", $biller_id);
 												}
 												if($product_id){
-													$this->db->where("product_id",$product_id);
+													$this->db->where("product_id", $product_id);
 												}
 												if($from_date && $to_date){
 													$this->db->where('erp_purchase_items.date >="'.$from_date.'" AND erp_purchase_items.date<="'.$to_date.'"');
@@ -200,8 +219,7 @@
 												$totalshipping = 0 ;
 												$vqty = 0;
 												$unit_name = "";
-												$product_cost = 0;
-												
+												$product_cost = 0;												
 											if(is_array($pur_items)){
 												foreach($pur_items as $row1){
 													if($row->supplier_id == $row1->supplier_id){

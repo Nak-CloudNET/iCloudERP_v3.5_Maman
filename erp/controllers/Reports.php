@@ -1792,6 +1792,11 @@ class Reports extends MY_Controller
         } else {
             $product2 = NULL;
         }
+		if ($this->input->get('biller')) {
+            $biller = $this->input->get('biller');
+        } else {
+            $biller = NULL;
+        }
 		if ($this->input->get('reference_no')) {
             $reference_no = $this->input->get('reference_no');
         } else {
@@ -1855,6 +1860,9 @@ class Reports extends MY_Controller
             }
 			if($reference_no){
 				$this->datatables->where('erp_purchases.reference_no',$reference_no);
+			}
+			if($biller){
+				$this->datatables->where('erp_purchases.biller_id',$biller);
 			}
 			if($category){
 				$this->datatables->where('erp_products.category_id',$category);
@@ -9238,7 +9246,7 @@ class Reports extends MY_Controller
         }
     }
 
-	//========= sokhan export purchase =============//
+	
 	function getPurchasesReport2($pdf = NULL, $xls = NULL)
     {
         $datt =$this->reports_model->getLastDate("purchases","date");
@@ -9248,8 +9256,8 @@ class Reports extends MY_Controller
             $product = NULL;
         }
 		
-		if ($this->input->get('biller_id')) {
-            $biller = $this->input->get('biller_id');
+		if ($this->input->get('biller')) {
+            $biller = $this->input->get('biller');
         } else {
             $biller = NULL;
         }
@@ -9753,8 +9761,8 @@ class Reports extends MY_Controller
         } else {
             $user = NULL;
         }
-		if ($this->input->get('biller_id')) {
-            $biller = $this->input->get('biller_id');
+		if ($this->input->get('biller')) {
+            $biller = $this->input->get('biller');
         } else {
             $biller = NULL;
         }
@@ -10708,10 +10716,10 @@ class Reports extends MY_Controller
 
             $this->load->library('datatables');
             $this->datatables
-                ->select($this->db->dbprefix('companies') . ".id as idd, companies.company, name, companies.phone, companies.email, count(" . $this->db->dbprefix('purchases') . ".id) as total, COALESCE(sum(grand_total), 0) as total_amount, COALESCE(sum(paid), 0) as paid, ( COALESCE(sum(grand_total), 0) - COALESCE(sum(paid), 0)) as balance", FALSE)
+                ->select($this->db->dbprefix('companies') . ".id as idd, companies.company, name, companies.phone, companies.email, count(" . $this->db->dbprefix('purchases') . ".id) as total, COALESCE(sum(grand_total), 0) as total_amount, COALESCE(sum(paid), 0) as paid, ( COALESCE(sum(grand_total), 0) - COALESCE(sum(paid), 0)) as balance, users.username", FALSE)
                 ->from("companies")
                 ->join('purchases', 'purchases.supplier_id=companies.id')
-                ->join('users', 'users.id=purchases.created_by', 'left')
+                ->join('users', 'users.id = purchases.created_by', 'left')
                 ->where('companies.group_name', 'supplier')
                 ->group_by('companies.id')
                 ->add_column("Actions", "<div class='text-center'><a class=\"tip\" title='" . lang("view_report") . "' href='" . site_url('reports/supplier_report/$1') . "'><span class='label label-primary'>" . lang("view_report") . "</span></a></div>", "idd")
@@ -10795,14 +10803,11 @@ class Reports extends MY_Controller
         $this->data['users'] = $this->reports_model->getStaff();
         $this->data['warehouses'] = $this->site->getAllWarehouses();
 		$this->data['products']     = $this->reports_model->getAllProducts();
-
         $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
-
         $this->data['user_id'] = $user_id;
         $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('suppliers_report')));
         $meta = array('page_title' => lang('suppliers_report'), 'bc' => $bc);
         $this->page_construct('reports/supplier_report', $meta, $this->data);
-
     }
     
     function getSupplierByItems($pdf = NULL, $xls = NULL)
@@ -20326,6 +20331,42 @@ class Reports extends MY_Controller
         } else {
             $supplier = NULL;
         }
+		if ($this->input->get('biller')) {
+            $biller = $this->input->get('biller');
+        } else {
+            $biller = NULL;
+        }
+		
+        if ($this->input->get('user')) {
+            $user = $this->input->get('user');
+        } else {
+            $user = NULL;
+        }
+		
+        if ($this->input->get('warehouse')) {
+            $warehouse = $this->input->get('warehouse');
+        } else {
+            $warehouse = NULL;
+        }
+		
+        if ($this->input->get('reference_no')) {
+            $reference_no = $this->input->get('reference_no');
+        } else {
+            $reference_no = NULL;
+        }
+		
+        if ($this->input->get('start_date')) {
+            $start_date = $this->erp->fsd($this->input->get('start_date'));
+        } else {
+            $start_date = NULL;
+        }
+		
+        if ($this->input->get('end_date')) {
+            $end_date =  $this->erp->fsd($this->input->get('end_date'));
+        } else {
+            $end_date = $datt;
+        }
+		
 		if (!$this->Owner && !$this->Admin && !$this->session->userdata('view_right')) {
             $user = $this->session->userdata('user_id');
         }
@@ -20461,10 +20502,30 @@ class Reports extends MY_Controller
                 }
             }
 
-
 			if($supplier){
 				$this->db->where('purchases_order.supplier_id',$supplier);
 			}
+			
+			if($user){
+				$this->db->where('purchases_order.create_by', $user);
+			}
+			
+			if($biller){
+				$this->db->where('purchases_order.biller_id', $biller);
+			}		
+			
+            if ($warehouse) {
+                $this->datatables->where('purchases.warehouse_id', $warehouse);
+            }
+			
+            if ($reference_no) {
+                $this->datatables->like('purchases.reference_no', $reference_no, 'both');
+            }
+			
+            if ($start_date) {
+                $this->datatables->where('date_format('.$this->db->dbprefix('purchases').'.date,"%Y-%m-%d") BETWEEN "' . $start_date . '" and "' . $end_date . '"');
+            }
+			
 			if(!$this->Owner && !$this->Admin && $this->session->userdata('view_right') == 0){
 				if ($user) {
 					$this->datatables->where('purchases_order.created_by', $user);
@@ -23148,7 +23209,7 @@ class Reports extends MY_Controller
         }
 
         $this->form_validation->set_rules('form_action', lang("form_action"), 'required');
-        // echo "hello";exit();
+        
         if ($this->form_validation->run() == true) {
             $from_date = $this->input->post('from_date');
             $to_date = $this->input->post('to_date');
@@ -23509,18 +23570,27 @@ class Reports extends MY_Controller
 	
 	function supplier_details()
     {
-       //$this->erp->checkPermissions('inventory_valuation_detail', NULL, 'product_report');
         $datt =$this->reports_model->getLastDate("erp_purchase_items","date");
+		
         if ($this->input->post('supplier')) {
             $supplier =  $this->input->post('supplier');
         }else{
             $supplier = null;
         }
+		
         if ($this->input->post('reference_no')) {
             $reference = $this->input->post('reference_no');
         }else{
             $reference = null;
         }
+		
+		if ($this->input->post('biller')) {
+            $biller = $this->input->post('biller');
+        } else {
+            $biller = NULL;
+        }
+		
+		
         if ($this->input->post('warehouse')) {
             $warehouse = $this->input->post('warehouse');
         }else{
@@ -23544,7 +23614,8 @@ class Reports extends MY_Controller
         }else{
             $to_date= $datt;
         }
-		$this->data['supplier']    = $supplier;
+		$this->data['supplier']     = $supplier;
+		$this->data['biller_id']    = $biller;
 		$this->data['warehouse']    = $warehouse;
 		$this->data['reference']    = $reference;
 		$this->data['product_id']   = $product_id;
@@ -23582,18 +23653,25 @@ class Reports extends MY_Controller
         }else{
             $this->data['to_date1'] = trim($to_date);
         }
-        $biller_id = $this->session->userdata('biller_id');
+		
+		if($biller == null){
+             $this->data['biller'] = 0;
+        }else{
+            $this->data['biller1'] = $biller;
+        }
+        
 		$wid = $this->reports_model->getWareByUserID();
 		$this->data['warefull'] = $this->reports_model->getWareFullByUSER($wid);
 		$this->data['biller_idd'] = $this->reports_model->getBiilerByUserID();
-
-        $this->data['billers'] = $this->site->getAllCompanies('biller');
-        $this->data['user_billers'] = $this->sales_model->getAllCompaniesByID($biller_id);
-		//$this->erp->print_arrays($this->reports_model->getAllCategories());
+		if($this->Owner || $this->Admin){
+			$this->data['billers'] = $this->reports_model->getBillers();
+		}else{
+			$biller_id = json_decode($this->session->userdata('biller_id'));
+			$this->data['billers'] = $this->site->getBillerByID($biller_id);
+		}
         $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('reports')));
         $meta = array('page_title' => lang('supplier_products'), 'bc' => $bc);
         $this->page_construct('reports/supplier_details', $meta, $this->data);
-
     }
 	
 	function product_profit()
