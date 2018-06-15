@@ -2824,8 +2824,10 @@ var lang = {unexpected_value: '<?=lang('unexpected_value');?>', select_above: '<
                     url: "<?= site_url('customers/getCustomer') ?>/" + $(element).val(),
                     dataType: "json",
                     success: function (data) {
-                        $('#order_discount').val(data[0].order_discount == null ? 0 : data[0].order_discount + '%');
-                        if (data[0].order_discount > 0) {
+						var order_discount = data[0].order_discount == false ? 0 : (data[0].order_discount > 0 ? data[0].order_discount : 0);
+                        $('#order_discount').val(order_discount + '%');
+                        //$('#order_discount').val(data[0].order_discount == null ? 0 : data[0].order_discount + '%');
+                        if (order_discount > 0) {
                             $('#order_discount_input').attr('readonly', 'true');
                         }
                         callback(data[0]);
@@ -3029,7 +3031,6 @@ var lang = {unexpected_value: '<?=lang('unexpected_value');?>', select_above: '<
 				suspend.appendTo("#hidesuspend");
 				<?php } ?>
 				var twt = formatDecimal(((total + total_tax) - order_discount) + parseFloat(total_shipping));
-
 				if (an == 1) {
 					bootbox.alert('<?= lang('x_total'); ?>');
 					return false;

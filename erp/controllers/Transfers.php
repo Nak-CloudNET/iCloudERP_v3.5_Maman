@@ -141,9 +141,10 @@ class Transfers extends MY_Controller
 
 		if ($warehouse_id) {
             $this->datatables
-                ->select("transfers.id as id, transfers.date, transfer_no, from_warehouse_name as fname, from_warehouse_code as fcode, to_warehouse_name as tname,to_warehouse_code as tcode, sum(erp_tran.qty), transfers.status")
+                ->select("transfers.id as id, transfers.date, transfer_no, from_warehouse_name as fname, from_warehouse_code as fcode, to_warehouse_name as tname,to_warehouse_code as tcode, sum(erp_tran.qty), transfers.status, users.first_name")
                 ->from('transfers')
                 ->join('transfer_items', 'transfers.id = transfer_items.transfer_id', 'left')
+                ->join('users', 'users.id = transfers.created_by', 'left')
     			->join($ltrans,'erp_tran.product_id = transfer_items.product_id AND erp_tran.transfer_id = transfer_items.transfer_id','left')
                 ->edit_column("fname", "$1 ($2)", "fname, fcode")
                 ->edit_column("tname", "$1 ($2)", "tname, tcode")
@@ -158,9 +159,10 @@ class Transfers extends MY_Controller
 
         } else {
             $this->datatables
-                ->select("transfers.id as id, transfers.date, transfer_no, from_warehouse_name as fname, from_warehouse_code as fcode, to_warehouse_name as tname,to_warehouse_code as tcode,  sum(erp_tran.qty), transfers.status")
+                ->select("transfers.id as id, transfers.date, transfer_no, from_warehouse_name as fname, from_warehouse_code as fcode, to_warehouse_name as tname,to_warehouse_code as tcode,  sum(erp_tran.qty), transfers.status, users.first_name")
                 ->from('transfers')
                 ->join('transfer_items', 'transfers.id = transfer_items.transfer_id', 'left')
+				->join('users', 'users.id = transfers.created_by', 'left')
                 ->join($ltrans,'erp_tran.product_id = transfer_items.product_id AND erp_tran.transfer_id = transfer_items.transfer_id','left')
                 ->edit_column("fname", "$1 ($2)", "fname, fcode")
                 ->edit_column("tname", "$1 ($2)", "tname, tcode")

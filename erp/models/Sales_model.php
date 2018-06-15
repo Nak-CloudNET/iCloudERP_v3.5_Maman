@@ -2443,7 +2443,7 @@ class Sales_model extends CI_Model
         return FALSE;
     }
 
-    public function updatePurchaseItem($id, $qty, $sale_item_id, $product_id = NULL, $warehouse_id = NULL, $option_id = NULL, $return_item_id = NULL)
+    public function updatePurchaseItem($id, $qty, $sale_item_id, $product_id = NULL, $warehouse_id = NULL, $option_id = NULL, $return_item_id = NULL, $return_date = NULL)
     {
         if ($id) {
             if($pi = $this->getPurchaseItemByID($id)) {
@@ -2524,7 +2524,7 @@ class Sales_model extends CI_Model
 						'item_tax' 			=> 0,
 						'warehouse_id' 		=> $sale_item->warehouse_id,
 						'subtotal' 			=> 0,
-						'date' 				=> date('Y-m-d'),
+						'date' 				=> $return_date,
 						'status' 			=>'received',
 						'transaction_type'	=> 'SALE RETURN',
 						'transaction_id'	=> $return_item_id,
@@ -2571,7 +2571,7 @@ class Sales_model extends CI_Model
 							'item_tax' 			=> 0,
 							'warehouse_id' 		=> $warehouse_id,
 							'subtotal' 			=> 0,
-							'date' 				=> date('Y-m-d'),
+							'date' 				=> $return_date,
 							'status' 			=>'received',
 							'transaction_type'	=> 'SALE RETURN',
 							'transaction_id'	=> $return_item_id,
@@ -2612,7 +2612,7 @@ class Sales_model extends CI_Model
 									'item_tax' 			=> 0,
 									'warehouse_id' 		=> $warehouse_id,
 									'subtotal' 			=> 0,
-									'date' 				=> date('Y-m-d'),
+									'date' 				=> $return_date,
 									'status' 			=>'received',
 									'transaction_type'	=> 'SALE RETURN',
 									'transaction_id'	=> $return_item_id,
@@ -2713,7 +2713,7 @@ class Sales_model extends CI_Model
 								}
 							}
 						}
-						$this->updatePurchaseItem(NULL,($item['quantity']*$combo_item->qty), NULL, $combo_item->id, $item['warehouse_id'], NULL, $return_item_id);
+						$this->updatePurchaseItem(NULL,($item['quantity']*$combo_item->qty), NULL, $combo_item->id, $item['warehouse_id'], NULL, $return_item_id, $data['date']);
 					}
 				} else {
 					
@@ -2748,7 +2748,7 @@ class Sales_model extends CI_Model
 						}
 					}
 					
-					$this->updatePurchaseItem(NULL, $item['quantity']*($cost->qty_unit?$cost->qty_unit:1), $item['sale_item_id'], $item['product_id'], $item['warehouse_id'], $item['option_id'], $return_item_id);
+					$this->updatePurchaseItem(NULL, $item['quantity']*($cost->qty_unit ? $cost->qty_unit : 1), $item['sale_item_id'], $item['product_id'], $item['warehouse_id'], $item['option_id'], $return_item_id, $data['date']);
 				}
 				
 				$total_amount_to_dep += $item['subtotal'];

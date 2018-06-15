@@ -2015,15 +2015,7 @@
 												</a>
 											</li>
 										<?php } ?>
-                                        <?php
-                                            if ($GP['sales-loan']) { ?>
-                                            <li id="sales_sales_loans">
-                                                <a class="submenu" href="<?= site_url('sales/sales_loans'); ?>">
-                                                    <i class="fa fa-money"></i>
-                                                    <span class="text"> <?= lang('installment'); ?></span>
-                                                </a>
-                                            </li>
-                                        <?php } ?>
+										
                                         <?php if ($GP['sales-return_sales']) { ?>
                                             
                                             <li id="sales_return_sales">

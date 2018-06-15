@@ -42,26 +42,18 @@
         }
         <?php } ?>
 
-        if (!__getItem('redate')) {
-            $("#redate").datetimepicker({
-                format: site.dateFormats.js_ldate,
-                fontAwesome: true,
-                language: 'erp',
-                weekStart: 1,
-                todayBtn: 1,
-                autoclose: 1,
-                todayHighlight: 1,
-                startView: 2,
-                forceParse: 0
-            }).datetimepicker('update', new Date());
-        }
-        $(document).on('change', '#redate', function (e) {
-            __setItem('redate', $(this).val());
-        });
-        if (redate = __getItem('redate')) {
-            $('#redate').val(redate);
-        }
-
+        $("#redate").datetimepicker({
+			format: site.dateFormats.js_ldate,
+			fontAwesome: true,
+			language: 'erp',
+			weekStart: 1,
+			todayBtn: 1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			forceParse: 0
+		}).datetimepicker('update', new Date());
+        
         if (reref = __getItem('reref')) {
             $('#reref').val(reref);
         }

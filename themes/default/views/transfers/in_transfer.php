@@ -25,7 +25,7 @@
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            }, {"mRender": fld}, null, null, null, {"mRender": currencyFormat}, {"mRender": row_status}, {"bSortable": false}],
+            }, {"mRender": fld}, null, null, null, {"mRender": currencyFormat}, {"mRender": row_status}, null, {"bSortable": false}],
             'fnRowCallback': function (nRow, aData, iDisplayIndex) {
                 var oSettings = oTable.fnSettings();
                 nRow.id = aData[0];
@@ -130,37 +130,39 @@
                     <table id="TOData" cellpadding="0" cellspacing="0" border="0"
                            class="table table-bordered table-condensed table-hover table-striped">
                         <thead>
-                        <tr class="active">
-                            <th class="col-sm-1" style="text-align: center;">
-                                <input class="checkbox checkft" type="checkbox" name="check"/>
-                            </th>
-                            <th class="col-sm-2"><?= lang("date"); ?></th>
-                            <th class="col-sm-2"><?= lang("ref_no"); ?></th>
-                            <th class="col-sm-2"><?= lang("warehouse") . ' (' . lang('from') . ')'; ?></th>
-                            <th class="col-sm-2"><?= lang("warehouse") . ' (' . lang('to') . ')'; ?></th>
-                            <th class="col-sm-1"><?= lang("quantity"); ?></th>
-                            <th class="col-sm-1"><?= lang("status"); ?></th>
-                            <th class="col-sm-2"><?= lang("actions"); ?></th>
-                        </tr>
+							<tr class="active">
+								<th class="col-sm-1" style="width:5% !important; text-align: center;">
+									<input class="checkbox checkft" type="checkbox" name="check"/>
+								</th>
+								<th class="col-sm-1"><?= lang("date"); ?></th>
+								<th class="col-sm-1"><?= lang("ref_no"); ?></th>
+								<th class="col-sm-2"><?= lang("warehouse") . ' (' . lang('from') . ')'; ?></th>
+								<th class="col-sm-2"><?= lang("warehouse") . ' (' . lang('to') . ')'; ?></th>
+								<th class="col-sm-1"><?= lang("quantity"); ?></th>
+								<th class="col-sm-1"><?= lang("status"); ?></th>
+								<th class="col-sm-2"><?= lang("created_by"); ?></th>
+								<th class="col-sm-2"><?= lang("actions"); ?></th>
+							</tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td colspan="10" class="dataTables_empty"><?= lang('loading_data_from_server'); ?></td>
-                        </tr>
+							<tr>
+								<td colspan="10" class="dataTables_empty"><?= lang('loading_data_from_server'); ?></td>
+							</tr>
                         </tbody>
                         <tfoot class="dtFilter">
-                        <tr class="active">
-                            <th style="text-align: center;">
-                                <input class="checkbox checkft" type="checkbox" name="check"/>
-                            </th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th style="text-align: center;"><?= lang("actions"); ?></th>
-                        </tr>
+							<tr class="active">
+								<th style="width:5% !important; text-align: center;">
+									<input class="checkbox checkft" type="checkbox" name="check"/>
+								</th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th style="text-align: center;"><?= lang("actions"); ?></th>
+							</tr>
                         </tfoot>
                     </table>
                 </div>
