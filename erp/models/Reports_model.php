@@ -43,6 +43,16 @@ class Reports_model extends CI_Model
 			}
 			return false; 	
 	}
+	public function getproductBycode(){
+        $q = $this->db->get('erp_products');
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+	}
 	public function getTransfersReport($reference_no,$start_date,$end_date,$from_warehouse,$to_warehouse,$offset,$limit,$wid){ 
 		if($reference_no){
 			$this->db->where("erp_transfers.transfer_no",$reference_no);

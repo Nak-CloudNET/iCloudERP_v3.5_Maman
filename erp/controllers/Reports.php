@@ -517,10 +517,10 @@ class Reports extends MY_Controller
     {
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
 		$wid = $this->reports_model->getWareByUserID();
-            $pro_code = $this->reports_model->getProductName();
-            //$ware_id = $this->reports_model->getWarehouse();
-            //$this->erp->print_arrays($ware_id[]->id);
-            //$this->data['pro_code'] = $pro_code;
+            $code =$this->reports_model->getproductBycode();
+            $ware_id = $this->reports_model->getWarehouse();
+            $this->erp->print_arrays($code);
+            $this->data['pro_code'] =$code;
 
             $inv=$this->reports_model->getEachbrance();
             $this->data['rows'] = $inv;
