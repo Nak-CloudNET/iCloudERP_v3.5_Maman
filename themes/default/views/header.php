@@ -1446,6 +1446,11 @@
 																	<i class="fa fa-barcode"></i><span class="text"> <?= lang('product_quantity_alerts'); ?></span>
 																</a>
 															</li>
+                                                            <li id="reports_each_branch">
+                                                                <a href="<?= site_url('reports/each_branch') ?>">
+                                                                    <i class="fa fa-barcode"></i><span class="text"> <?= lang('Each Branch'); ?></span>
+                                                                </a>
+                                                            </li>
 															<?php if ($this->Settings->product_expiry) { ?>
 																<li id="reports_expiry_alerts">
 																	<a href="<?= site_url('reports/expiry_alerts') ?>">
@@ -2646,6 +2651,11 @@
 														</a>
 													</li>
 												<?php } ?>
+                                                <li id="reports_each_branch">
+                                                    <a href="<?= site_url('reports/each_branch') ?>">
+                                                        <i class="fa fa-barcode"></i><span class="text"> <?= lang('Each Branch'); ?></span>
+                                                    </a>
+                                                </li>
 												<?php if ($this->Settings->product_expiry) { ?>
 													<li id="reports_expiry_alerts">
 														<a href="<?= site_url('reports/expiry_alerts') ?>">

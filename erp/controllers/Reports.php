@@ -513,8 +513,33 @@ class Reports extends MY_Controller
         $meta = array('page_title' => lang('product_quantity_alerts'), 'bc' => $bc);
         $this->page_construct('reports/quantity_alerts', $meta, $this->data);
     }
-	
-	function public_charge_alerts($warehouse_id = NULL)
+    function each_branch($warehouse_id=NULL)
+    {
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+		$wid = $this->reports_model->getWareByUserID();
+            $pro_code = $this->reports_model->getProductName();
+            //$ware_id = $this->reports_model->getWarehouse();
+            //$this->erp->print_arrays($ware_id[]->id);
+            $this->data['pro_code'] = $pro_code;
+
+            $inv=$this->reports_model->getEachbrance();
+            $this->data['rows'] = $inv;
+            //$this->erp->print_arrays($inv);
+            $this->data['warehouses'] = $this->reports_model->getWareFullByUSER($wid);
+
+            $this->data['warehouse'] = $this->site->getWarehouseByID($warehouse_id) ;
+			if($warehouse_id){
+			 $this->data['warehouse_id'] = $warehouse_id;
+			}else{
+				$this->data['warehouse_id'] = 0;
+			}
+
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('product_quantity_alerts')));
+        $meta = array('page_title' => lang('product_report_each_branch'), 'bc' => $bc);
+        $this->page_construct('reports/report_each_branch', $meta, $this->data);
+    }
+
+    function public_charge_alerts($warehouse_id = NULL)
     {
         $this->erp->checkPermissions('quantity_alert',NULL,'product_report');
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
@@ -671,7 +696,6 @@ class Reports extends MY_Controller
 
         }
     }
-	
 	function getPublicChargeAlerts($warehouse_id = NULL, $pdf = NULL, $xls = NULL)
     {
         $this->erp->checkPermissions('quantity_alert',NULL,'product_report');

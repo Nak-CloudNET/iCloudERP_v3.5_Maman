@@ -5933,7 +5933,23 @@ ORDER BY
 		}
 		return false;
 	}
-	
+    public function getEachbrance()
+    {
+        $this->db
+            ->select('erp_products.`name`,erp_products.`code`,erp_purchase_items.warehouse_id, 
+                    erp_products.price,erp_purchase_items.quantity,erp_products.cost,
+                    ')
+            ->from('erp_products')
+            ->join("erp_purchase_items", 'erp_purchase_items.product_id=erp_products.id', 'left');
+        $q = $this->db->get();
+        if($q->num_rows()>0){
+            foreach($q->result() as $row){
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
+    }
 	public function getLastDate($table,$field){
 		$this->db->select("MAX(date_format($field,'%Y-%m-%d')) as datt");
 		$q = $this->db->get("$table");
@@ -6104,5 +6120,7 @@ ORDER BY
         }
         return false;
     }
+
+
 	
 }
