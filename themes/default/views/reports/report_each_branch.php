@@ -86,7 +86,7 @@
                                     //echo $Total_price.'<br>'.$row->code.'<br>'.$row->warehouse_id.'<br>';
                                 }
                             }
-                            echo $pro_codes->code;
+                            //echo $pro_codes->code;
                         }
                             //$this->erp->print_arrays($rows);
                        ?>
