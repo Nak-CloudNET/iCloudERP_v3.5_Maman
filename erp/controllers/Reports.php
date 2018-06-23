@@ -520,7 +520,7 @@ class Reports extends MY_Controller
             $pro_code = $this->reports_model->getProductName();
             //$ware_id = $this->reports_model->getWarehouse();
             //$this->erp->print_arrays($ware_id[]->id);
-            $this->data['pro_code'] = $pro_code;
+            //$this->data['pro_code'] = $pro_code;
 
             $inv=$this->reports_model->getEachbrance();
             $this->data['rows'] = $inv;
