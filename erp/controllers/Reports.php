@@ -4015,13 +4015,13 @@ class Reports extends MY_Controller
 				categories.id AS cid, 
 				categories.code, 
 				categories.name, 
-				COALESCE(SUM(erp_products.quantity), 0) AS current_stock, 
+				COALESCE(SUM(erp_warehouses_products.quantity), 0) AS current_stock, 
 				COALESCE(SUM(cost*erp_products.quantity), 0) AS total_cost, 
 				COALESCE(SUM(price*erp_products.quantity), 0) AS total_price,				
 				COALESCE(SUM(price*erp_products.quantity) - SUM(cost*erp_products.quantity), 0) as balance')
 				->from('categories')
-				->join('products', 'products.category_id = categories.id', 'left');
-				// ->join('erp_warehouses_products', 'erp_warehouses_products.product_id = products.id', 'left');
+				->join('products', 'products.category_id = categories.id', 'left')
+				 ->join('erp_warehouses_products', 'erp_warehouses_products.product_id = products.id', 'left');
 
 				$this->datatables->group_by('categories.id');
 
