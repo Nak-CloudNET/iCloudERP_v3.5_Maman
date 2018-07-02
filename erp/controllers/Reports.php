@@ -513,7 +513,7 @@ class Reports extends MY_Controller
         $meta = array('page_title' => lang('product_quantity_alerts'), 'bc' => $bc);
         $this->page_construct('reports/quantity_alerts', $meta, $this->data);
     }
-    function each_branch($warehouse_id=NULL)
+    function balance_value_report($warehouse_id=NULL)
     {
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
 		$wid = $this->reports_model->getWareByUserID();
@@ -530,9 +530,9 @@ class Reports extends MY_Controller
 				$this->data['warehouse_id'] = 0;
 			}
 
-        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('Product_Report_Each_Branch')));
-        $meta = array('page_title' => lang('product_report_each_branch'), 'bc' => $bc);
-        $this->page_construct('reports/report_each_branch', $meta, $this->data);
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('Balance_Value_Report')));
+        $meta = array('page_title' => lang('Balance_Value_Report'), 'bc' => $bc);
+        $this->page_construct('reports/balance_value_report', $meta, $this->data);
     }
 
     function public_charge_alerts($warehouse_id = NULL)
@@ -19823,7 +19823,7 @@ class Reports extends MY_Controller
         }
 	}
 	
-    function each_branch_actions()
+    function balance_value_report_actions()
 	{
         $this->form_validation->set_rules('form_action', lang("form_action"), 'required');
 
@@ -19835,9 +19835,9 @@ class Reports extends MY_Controller
 
                     $this->load->library('excel');
                     $this->excel->setActiveSheetIndex(0);
-                    $this->excel->getActiveSheet()->setTitle(lang('Each_Branch_report'));
+                    $this->excel->getActiveSheet()->setTitle(lang('Balance Value Report'));
 
-                    $this->excel->getActiveSheet()->SetCellValue('A1', 'Product Each Branch');
+                    $this->excel->getActiveSheet()->SetCellValue('A1', 'Balance Value Report');
                     $this->excel->getActiveSheet()->mergeCells('A1:E1');
                     $this->excel->getActiveSheet()->getRowDimension(1)->setRowHeight(30);
                     $this->excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -19878,13 +19878,7 @@ class Reports extends MY_Controller
                     $this->excel->getActiveSheet()->getStyle('A2:E2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                     $inv=$this->reports_model->getEachbrance();
                     $styleArray1 = array(
-                        'font'  => array(
-                            'bold'  => true,
-                            'color' => array('rgb' => '000000'),
-                        ),
-                        'fill' => array(
-                            'type' => PHPExcel_Style_Fill::FILL_SOLID,
-                        ),
+
                         'borders' => array(
                             'allborders' => array(
                                 'style' => PHPExcel_Style_Border::BORDER_THIN
@@ -19918,9 +19912,23 @@ class Reports extends MY_Controller
                         $row++;
 						
                     }
+                    $styleArray2 = array(
+                        'font'  => array(
+                            'bold'  => true,
+                            'color' => array('rgb' => '000000'),
+                        ),
+                        'fill' => array(
+                            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                        ),
+                        'borders' => array(
+                            'allborders' => array(
+                                'style' => PHPExcel_Style_Border::BORDER_THIN
+                            )
+                        )
 
+                    );
                     $this->excel->getActiveSheet()->SetCellValue('A' . $row, "Total :");
-                    $this->excel->getActiveSheet()->getStyle('A' . $row .':E' .$row)->applyFromArray($styleArray1);
+                    $this->excel->getActiveSheet()->getStyle('A' . $row .':E' .$row)->applyFromArray($styleArray2);
                     $this->excel->getActiveSheet()->SetCellValue('B' . $row, $this->erp->formatDecimal($g_total_qty));
                     $this->excel->getActiveSheet()->SetCellValue('C' . $row, $this->erp->formatMoney($g_total_price));
                     $this->excel->getActiveSheet()->SetCellValue('D' . $row, $this->erp->formatMoney($g_total_cost));

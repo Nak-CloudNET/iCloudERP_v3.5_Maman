@@ -1,11 +1,11 @@
 
 <?php
-    echo form_open('reports/each_branch_actions', 'id="action-form"');
+    echo form_open('reports/balance_value_report_actions', 'id="action-form"');
 ?>
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i
-                class="fa-fw fa fa-calendar-o"></i><?= lang('Product_Report_Each_Branch') . ' (' . ($warehouse?$warehouse->name : lang('all_warehouses')) . ')'; ?>
+                class="fa-fw fa fa-calendar-o"></i><?= lang('Balance_Value_Report') . ' (' . ($warehouse?$warehouse->name : lang('all_warehouses')) . ')'; ?>
         </h2>
 
         <div class="box-icon">

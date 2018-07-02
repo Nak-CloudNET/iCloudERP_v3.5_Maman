@@ -1446,9 +1446,9 @@
 																	<i class="fa fa-barcode"></i><span class="text"> <?= lang('product_quantity_alerts'); ?></span>
 																</a>
 															</li>
-                                                            <li id="reports_each_branch">
-                                                                <a href="<?= site_url('reports/each_branch') ?>">
-                                                                    <i class="fa fa-barcode"></i><span class="text"> <?= lang('Each Branch'); ?></span>
+                                                            <li id="balance_value_report">
+                                                                <a href="<?= site_url('reports/balance_value_report') ?>">
+                                                                    <i class="fa fa-barcode"></i><span class="text"> <?= lang('Balance_Value_Report'); ?></span>
                                                                 </a>
                                                             </li>
 															<?php if ($this->Settings->product_expiry) { ?>
@@ -2651,9 +2651,9 @@
 														</a>
 													</li>
 												<?php } ?>
-                                                <li id="reports_each_branch">
-                                                    <a href="<?= site_url('reports/each_branch') ?>">
-                                                        <i class="fa fa-barcode"></i><span class="text"> <?= lang('Each Branch'); ?></span>
+                                                <li id="balance_value_report">
+                                                    <a href="<?= site_url('reports/balance_value_report') ?>">
+                                                        <i class="fa fa-barcode"></i><span class="text"> <?= lang('Balance_Value_Report'); ?></span>
                                                     </a>
                                                 </li>
 												<?php if ($this->Settings->product_expiry) { ?>
