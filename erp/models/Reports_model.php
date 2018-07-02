@@ -5946,11 +5946,16 @@ ORDER BY
     public function getEachbrance()
     {
         $this->db
-            ->select('erp_products.`name`,erp_products.`code`,erp_purchase_items.warehouse_id, 
-                    erp_products.price,erp_purchase_items.quantity,erp_products.cost,
+            ->select('erp_companies.company, 
+                            SUM(erp_products.price*erp_purchase_items.quantity)as total_price,
+                            SUM(erp_products.cost*erp_purchase_items.quantity)as total_cost,
+                            SUM(erp_purchase_items.quantity)as total_qty
                     ')
             ->from('erp_products')
-            ->join("erp_purchase_items", 'erp_purchase_items.product_id=erp_products.id', 'left');
+            ->join("erp_purchase_items", 'erp_purchase_items.product_id=erp_products.id', 'left')
+            ->join("erp_companies", 'erp_companies.cf5=erp_purchase_items.warehouse_id', 'left')
+            ->where('erp_companies.group_name', 'biller')
+            ->group_by('erp_purchase_items.warehouse_id');
         $q = $this->db->get();
         if($q->num_rows()>0){
             foreach($q->result() as $row){

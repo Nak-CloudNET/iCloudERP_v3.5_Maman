@@ -5,7 +5,7 @@
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i
-                class="fa-fw fa fa-calendar-o"></i><?= lang('product_quantity_alerts') . ' (' . ($warehouse?$warehouse->name : lang('all_warehouses')) . ')'; ?>
+                class="fa-fw fa fa-calendar-o"></i><?= lang('Product_Report_Each_Branch') . ' (' . ($warehouse?$warehouse->name : lang('all_warehouses')) . ')'; ?>
         </h2>
 
         <div class="box-icon">
@@ -17,7 +17,7 @@
                         </a>
                         <ul class="dropdown-menu pull-right" class="tasks-menus" role="menu" aria-labelledby="dLabel">
                             <li>
-                                <a href="<?= site_url('reports/quantity_alerts') ?>">
+                                <a href="<?= site_url('reports/each_branch') ?>">
                                     <i class="fa fa-building-o"></i> <?= lang('all_warehouses') ?>
                                 </a>
                             </li>
@@ -25,7 +25,7 @@
                             <?php
 							if(is_array($warehouses)){
 								foreach ($warehouses as $warehouse) {
-									echo '<li ' . ($warehouse_id && $warehouse_id == $warehouse->id ? 'class="active"' : '') . '><a href="' . site_url('reports/quantity_alerts/' . $warehouse->id) . '"><i class="fa fa-building"></i>' . $warehouse->name . '</a></li>';
+									echo '<li ' . ($warehouse_id && $warehouse_id == $warehouse->id ? 'class="active"' : '') . '><a href="' . site_url('reports/each_branch/' . $warehouse->id) . '"><i class="fa fa-building"></i>' . $warehouse->name . '</a></li>';
 								}
 							}
                             ?>
@@ -70,40 +70,55 @@
                                 <input class="checkbox checkth" type="checkbox" name="check"/>
                             </th>
                             <th><?php echo $this->lang->line("Branch"); ?></th>
+                            <th><?php echo $this->lang->line("Total QTY"); ?></th>
                             <th><?php echo $this->lang->line("Total Price"); ?></th>
                             <th><?php echo $this->lang->line("Total Cost"); ?></th>
-                            <th><?php echo $this->lang->line("Profit"); ?></th>
+                            <th><?php echo $this->lang->line("Total Profit"); ?></th>
+
                         </tr>
                         </thead>
                         <tbody>
 
                         <?php
-                        foreach ($pro_code as $pro_codes){
-                            $Total_price=0;
+                            $g_total_price=0;
+                            $g_total_cost=0;
+                            $g_total_qty=0;
+                            $g_total_profit=0;
                             foreach ($rows as $row){
-                                if($row->code==$pro_codes->code && $row->warehouse_id=='1'){
-                                    $Total_price+=($row->price*$row->quantity);
-                                    //echo $Total_price.'<br>'.$row->code.'<br>'.$row->warehouse_id.'<br>';
-                                }
-                            }
-                            echo $pro_codes->code;
-                        }
-                            //$this->erp->print_arrays($rows);
-                       ?>
+                                //$this->erp->print_arrays($row);
+                                $total_profit=$row->total_price-$row->total_cost;
+                                $g_total_price+=$row->total_price;
+                                $g_total_cost+=$row->total_cost;
+                                $g_total_qty+=$row->total_qty;
+                                $g_total_profit+=$total_profit;
 
-                        <tr>
-                            <td colspan="5" class="dataTables_empty"><?= lang('loading_data_from_server'); ?></td>
-                        </tr>
+                                ?>
+                                    <tr>
+                                        <td style="min-width:30px; width: 30px; text-align: center;">
+                                            <input class="checkbox checkth" type="checkbox" name="check"/>
+                                        </td>
+                                        <td><?= $row->company ; ?></td>
+                                        <td><?= $this->erp->formatDecimal($row->total_qty); ?></td>
+                                        <td><?= $this->erp->formatDecimal($row->total_price); ?></td>
+                                        <td><?= $this->erp->formatDecimal($row->total_cost); ?></td>
+                                        <td><?= $this->erp->formatDecimal($total_profit); ?></td>
+
+                                    </tr>
+                            <?php
+
+                            }
+                            ?>
                         </tbody>
                         <tfoot class="dtFilter">
                         <tr class="active">
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkth" type="checkbox" name="check"/>
                             </th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th>TOTAL</th>
+                            <th><?= $this->erp->formatDecimal($g_total_qty);?></th>
+                            <th><?= $this->erp->formatDecimal($g_total_price);?></th>
+                            <th><?= $this->erp->formatDecimal($g_total_cost);?></th>
+                            <th><?= $this->erp->formatDecimal($g_total_profit);?></th>
                         </tr>
                         </tfoot>
                     </table>

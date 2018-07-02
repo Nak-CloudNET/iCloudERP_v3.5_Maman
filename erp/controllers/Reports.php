@@ -517,10 +517,6 @@ class Reports extends MY_Controller
     {
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
 		$wid = $this->reports_model->getWareByUserID();
-            $code =$this->reports_model->getproductBycode();
-            $ware_id = $this->reports_model->getWarehouse();
-            $this->erp->print_arrays($code);
-            $this->data['pro_code'] =$code;
 
             $inv=$this->reports_model->getEachbrance();
             $this->data['rows'] = $inv;
@@ -534,7 +530,7 @@ class Reports extends MY_Controller
 				$this->data['warehouse_id'] = 0;
 			}
 
-        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('product_quantity_alerts')));
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('Product_Report_Each_Branch')));
         $meta = array('page_title' => lang('product_report_each_branch'), 'bc' => $bc);
         $this->page_construct('reports/report_each_branch', $meta, $this->data);
     }
