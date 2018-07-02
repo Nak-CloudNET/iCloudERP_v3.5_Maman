@@ -19823,6 +19823,178 @@ class Reports extends MY_Controller
         }
 	}
 	
+    function each_branch_actions()
+	{
+        $this->form_validation->set_rules('form_action', lang("form_action"), 'required');
+
+        if ($this->form_validation->run() == true) {
+            $warehouse_id = $this->input->post('wareid');
+            $ware = $this->reports_model->getWarehouseNameByWID($warehouse_id);
+
+                if ($this->input->post('form_action') == 'export_excel' || $this->input->post('form_action') == 'export_pdf') {
+
+                    $this->load->library('excel');
+                    $this->excel->setActiveSheetIndex(0);
+                    $this->excel->getActiveSheet()->setTitle(lang('Each_Branch_report'));
+
+                    $this->excel->getActiveSheet()->SetCellValue('A1', 'Product Each Branch');
+                    $this->excel->getActiveSheet()->mergeCells('A1:E1');
+                    $this->excel->getActiveSheet()->getRowDimension(1)->setRowHeight(30);
+                    $this->excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                    $this->excel->getActiveSheet()->getStyle('A1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+                    $this->excel->getActiveSheet()->getStyle('A1')->getFont()
+                        ->setName('Times New Roman')
+                        ->setSize(16)
+                        ->setBold(true);
+
+                    $this->excel->getActiveSheet()->SetCellValue('A2', lang('Branch'));
+                    $this->excel->getActiveSheet()->SetCellValue('B2', lang('Total_QTY'));
+                    $this->excel->getActiveSheet()->SetCellValue('C2', lang('Total_Price'));
+                    $this->excel->getActiveSheet()->SetCellValue('D2', lang('Total_Cost'));
+                    $this->excel->getActiveSheet()->SetCellValue('E2', lang('Total_Profit'));
+
+                    $styleArray = array(
+                        'font'  => array(
+                            'bold'  => true,
+                            'color' => array('rgb' => 'FFFFFF'),
+                        ),
+                        'fill' => array(
+                            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                            'color' => array('rgb' => '428bca')
+                        ),
+                        'borders' => array(
+                        'allborders' => array(
+                            'style' => PHPExcel_Style_Border::BORDER_THIN
+                        )
+                    )
+                    );
+
+                    $this->excel->getActiveSheet()->getStyle('A2:E2')->applyFromArray($styleArray);
+                    $this->excel->getActiveSheet()->getStyle('A2:E2')->getFont()
+                        ->setName('Times New Roman')
+                        ->setSize(12);
+                    $this->excel->getActiveSheet()->getRowDimension(2)->setRowHeight(30);
+                    $this->excel->getActiveSheet()->getStyle('A2:E2')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+                    $this->excel->getActiveSheet()->getStyle('A2:E2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                    $inv=$this->reports_model->getEachbrance();
+                    $styleArray1 = array(
+                        'font'  => array(
+                            'bold'  => true,
+                            'color' => array('rgb' => '000000'),
+                        ),
+                        'fill' => array(
+                            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                        ),
+                        'borders' => array(
+                            'allborders' => array(
+                                'style' => PHPExcel_Style_Border::BORDER_THIN
+                            )
+                        )
+
+                    );
+                    $g_total_price=0;
+                    $g_total_cost=0;
+                    $g_total_qty=0;
+                    $g_total_profit=0;
+                    $row = 3;
+                    foreach ($inv as $invs) {
+
+                        //$this->erp->print_arrays($inv);
+                        $total_profit=$invs->total_price-$invs->total_cost;
+                        $g_total_price+=$invs->total_price;
+                        $g_total_cost+=$invs->total_cost;
+                        $g_total_qty+=$invs->total_qty;
+                        $g_total_profit+=$total_profit;
+
+                        $this->excel->getActiveSheet()->SetCellValue('A' . $row, $invs->company." ");
+                        $this->excel->getActiveSheet()->getStyle('A' . $row .':E' .$row)->applyFromArray($styleArray1);
+                        $this->excel->getActiveSheet()->SetCellValue('B' . $row, $this->erp->formatDecimal($invs->total_qty));
+                        $this->excel->getActiveSheet()->SetCellValue('C' . $row, $this->erp->formatMoney($invs->total_price));
+                        $this->excel->getActiveSheet()->SetCellValue('D' . $row, $this->erp->formatMoney($invs->total_cost));
+                        $this->excel->getActiveSheet()->SetCellValue('E' . $row, $this->erp->formatMoney($total_profit));
+
+                        $this->excel->getActiveSheet()->getRowDimension($row)->setRowHeight(20);
+
+                        $row++;
+						
+                    }
+
+                    $this->excel->getActiveSheet()->SetCellValue('A' . $row, "Total :");
+                    $this->excel->getActiveSheet()->getStyle('A' . $row .':E' .$row)->applyFromArray($styleArray1);
+                    $this->excel->getActiveSheet()->SetCellValue('B' . $row, $this->erp->formatDecimal($g_total_qty));
+                    $this->excel->getActiveSheet()->SetCellValue('C' . $row, $this->erp->formatMoney($g_total_price));
+                    $this->excel->getActiveSheet()->SetCellValue('D' . $row, $this->erp->formatMoney($g_total_cost));
+                    $this->excel->getActiveSheet()->SetCellValue('E' . $row, $this->erp->formatMoney($g_total_profit));
+
+                    $this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(35);
+                    $this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
+                    $this->excel->getActiveSheet()->getColumnDimension('C')->setWidth(30);
+                    $this->excel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+                    $this->excel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
+                    $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+                    $filename = 'quantity_alerts_report_' . date('Y_m_d_H_i_s');
+                    if ($this->input->post('form_action') == 'export_pdf') {
+                        $styleArray = array('borders' => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN)));
+                        $this->excel->getDefaultStyle()->applyFromArray($styleArray);
+                        require_once(APPPATH . "third_party" . DIRECTORY_SEPARATOR . "MPDF" . DIRECTORY_SEPARATOR . "mpdf.php");
+                        $rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
+                        $rendererLibrary = 'MPDF';
+                        $rendererLibraryPath = APPPATH . 'third_party' . DIRECTORY_SEPARATOR . $rendererLibrary;
+                        if (!PHPExcel_Settings::setPdfRenderer($rendererName, $rendererLibraryPath)) {
+                            die('Please set the $rendererName: ' . $rendererName . ' and $rendererLibraryPath: ' . $rendererLibraryPath . ' values' .
+                                PHP_EOL . ' as appropriate for your directory structure');
+                        }
+
+                        $this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+                        $this->excel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+                        $this->excel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+                        $this->excel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+                        $this->excel->getActiveSheet()->getPageSetup()->setFitToHeight(1);
+
+                        //Margins:
+                        $this->excel->getActiveSheet()->getPageMargins()->setTop(0.25);
+                        $this->excel->getActiveSheet()->getPageMargins()->setRight(0.25);
+                        $this->excel->getActiveSheet()->getPageMargins()->setLeft(0.25);
+                        $this->excel->getActiveSheet()->getPageMargins()->setBottom(0.25);
+
+                        header('Content-Type: application/pdf');
+                        header('Content-Disposition: attachment;filename="' . $filename . '.pdf"');
+                        header('Cache-Control: max-age=0');
+
+                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'PDF');
+                        return $objWriter->save('php://output');
+                    }
+                    if ($this->input->post('form_action') == 'export_excel') {
+
+                        $this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+                        $this->excel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+                        $this->excel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+                        $this->excel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+                        $this->excel->getActiveSheet()->getPageSetup()->setFitToHeight(1);
+
+                        //Margins:
+                        $this->excel->getActiveSheet()->getPageMargins()->setTop(0.25);
+                        $this->excel->getActiveSheet()->getPageMargins()->setRight(0.25);
+                        $this->excel->getActiveSheet()->getPageMargins()->setLeft(0.25);
+                        $this->excel->getActiveSheet()->getPageMargins()->setBottom(0.25);
+
+                        header('Content-Type: application/vnd.ms-excel');
+                        header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
+                        header('Cache-Control: max-age=0');
+
+                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+                        return $objWriter->save('php://output');
+                    }
+
+                    redirect($_SERVER["HTTP_REFERER"]);
+                }
+
+        } else {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+    }
+
     function quantity_actions()
 	{
         $this->form_validation->set_rules('form_action', lang("form_action"), 'required');
@@ -19891,7 +20063,7 @@ class Reports extends MY_Controller
                         $this->excel->getActiveSheet()->getRowDimension($row)->setRowHeight(20);
 
                         $row++;
-						
+
                     }
 
                     $this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(30);

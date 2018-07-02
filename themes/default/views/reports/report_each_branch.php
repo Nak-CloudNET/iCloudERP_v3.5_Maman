@@ -1,6 +1,6 @@
 
 <?php
-    echo form_open('reports/quantity_actions', 'id="action-form"');
+    echo form_open('reports/each_branch_actions', 'id="action-form"');
 ?>
 <div class="box">
     <div class="box-header">
@@ -99,9 +99,9 @@
                                         </td>
                                         <td><?= $row->company ; ?></td>
                                         <td><?= $this->erp->formatDecimal($row->total_qty); ?></td>
-                                        <td><?= $this->erp->formatDecimal($row->total_price); ?></td>
-                                        <td><?= $this->erp->formatDecimal($row->total_cost); ?></td>
-                                        <td><?= $this->erp->formatDecimal($total_profit); ?></td>
+                                        <td><?= $this->erp->formatMoney($row->total_price); ?></td>
+                                        <td><?= $this->erp->formatMoney($row->total_cost); ?></td>
+                                        <td><?= $this->erp->formatMoney($total_profit); ?></td>
 
                                     </tr>
                             <?php
@@ -116,9 +116,9 @@
                             </th>
                             <th>TOTAL</th>
                             <th><?= $this->erp->formatDecimal($g_total_qty);?></th>
-                            <th><?= $this->erp->formatDecimal($g_total_price);?></th>
-                            <th><?= $this->erp->formatDecimal($g_total_cost);?></th>
-                            <th><?= $this->erp->formatDecimal($g_total_profit);?></th>
+                            <th><?= $this->erp->formatMoney($g_total_price);?></th>
+                            <th><?= $this->erp->formatMoney($g_total_cost);?></th>
+                            <th><?= $this->erp->formatMoney($g_total_profit);?></th>
                         </tr>
                         </tfoot>
                     </table>
@@ -127,3 +127,18 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="<?= $assets ?>js/html2canvas.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#image').click(function (event) {
+            event.preventDefault();
+            html2canvas($('.box'), {
+                onrendered: function (canvas) {
+                    var img = canvas.toDataURL()
+                    window.open(img);
+                }
+            });
+            return false;
+        });
+    });
+</script>
