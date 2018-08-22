@@ -2443,7 +2443,7 @@ class Sales_model extends CI_Model
         return FALSE;
     }
 
-    public function updatePurchaseItem($id, $qty, $sale_item_id, $product_id = NULL, $warehouse_id = NULL, $option_id = NULL, $return_item_id = NULL, $return_date = NULL)
+   public function updatePurchaseItem($id, $qty, $sale_item_id, $product_id = NULL, $warehouse_id = NULL, $option_id = NULL, $return_item_id = NULL, $return_date = NULL)
     {
         if ($id) {
             if($pi = $this->getPurchaseItemByID($id)) {
@@ -2748,7 +2748,7 @@ class Sales_model extends CI_Model
 						}
 					}
 					
-					$this->updatePurchaseItem(NULL, $item['quantity']*($cost->qty_unit ? $cost->qty_unit : 1), $item['sale_item_id'], $item['product_id'], $item['warehouse_id'], $item['option_id'], $return_item_id, $data['date']);
+					$this->updatePurchaseItem(NULL, $item['quantity']*($cost->qty_unit?$cost->qty_unit:1), $item['sale_item_id'], $item['product_id'], $item['warehouse_id'], $item['option_id'], $return_item_id, $data['date']);
 				}
 				
 				$total_amount_to_dep += $item['subtotal'];

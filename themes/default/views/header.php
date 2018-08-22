@@ -1446,11 +1446,6 @@
 																	<i class="fa fa-barcode"></i><span class="text"> <?= lang('product_quantity_alerts'); ?></span>
 																</a>
 															</li>
-                                                            <li id="balance_value_report">
-                                                                <a href="<?= site_url('reports/balance_value_report') ?>">
-                                                                    <i class="fa fa-barcode"></i><span class="text"> <?= lang('Balance_Value_Report'); ?></span>
-                                                                </a>
-                                                            </li>
 															<?php if ($this->Settings->product_expiry) { ?>
 																<li id="reports_expiry_alerts">
 																	<a href="<?= site_url('reports/expiry_alerts') ?>">
@@ -2020,7 +2015,15 @@
 												</a>
 											</li>
 										<?php } ?>
-										
+                                        <?php
+                                            if ($GP['sales-loan']) { ?>
+                                            <li id="sales_sales_loans">
+                                                <a class="submenu" href="<?= site_url('sales/sales_loans'); ?>">
+                                                    <i class="fa fa-money"></i>
+                                                    <span class="text"> <?= lang('installment'); ?></span>
+                                                </a>
+                                            </li>
+                                        <?php } ?>
                                         <?php if ($GP['sales-return_sales']) { ?>
                                             
                                             <li id="sales_return_sales">
@@ -2644,8 +2647,8 @@
 												<span class="chevron closed"></span>
 											</a>
 											<ul>  
-												<?php if($GP['product_report-quantity_alert']){ ?>
-													<li id="reports_quantity_alerts">
+												<?php if($GP['']){ ?>
+													<li id="reports_qproduct_report-quantity_alertuantity_alerts">
 														<a href="<?= site_url('reports/quantity_alerts') ?>">
 															<i class="fa fa-bar-chart-o"></i><span class="text"> <?= lang('product_quantity_alerts'); ?></span>
 														</a>

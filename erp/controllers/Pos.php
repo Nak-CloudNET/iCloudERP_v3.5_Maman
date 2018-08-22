@@ -870,7 +870,7 @@ class Pos extends MY_Controller
 				$data['suspend_name']   = $this->input->post('suspend_name');
 
                 $arr_suspend = $this->pos_model->suspendSale($data, $products, $did);
-                if ($arr_suspend['suppend_id'] > 0) {
+                if ($arr_suspend['suppend_id'] >0) {
                     $this->session->set_userdata('remove_posls', 1);
                     $this->session->set_flashdata('message', $this->lang->line("sale_suspended"));
                     if($arr_suspend['have_item'] == 0){

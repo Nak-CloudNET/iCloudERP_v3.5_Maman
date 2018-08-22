@@ -43,16 +43,6 @@ class Reports_model extends CI_Model
 			}
 			return false; 	
 	}
-	public function getproductBycode(){
-        $q = $this->db->get('erp_products');
-        if ($q->num_rows() > 0) {
-            foreach (($q->result()) as $row) {
-                $data[] = $row;
-            }
-            return $data;
-        }
-        return FALSE;
-	}
 	public function getTransfersReport($reference_no,$start_date,$end_date,$from_warehouse,$to_warehouse,$offset,$limit,$wid){ 
 		if($reference_no){
 			$this->db->where("erp_transfers.transfer_no",$reference_no);
@@ -5943,6 +5933,7 @@ ORDER BY
 		}
 		return false;
 	}
+
     public function getEachbrance()
     {
         $this->db
@@ -5965,6 +5956,7 @@ ORDER BY
         }
         return false;
     }
+
 	public function getLastDate($table,$field){
 		$this->db->select("MAX(date_format($field,'%Y-%m-%d')) as datt");
 		$q = $this->db->get("$table");
@@ -6135,7 +6127,5 @@ ORDER BY
         }
         return false;
     }
-
-
 	
 }

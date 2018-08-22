@@ -63,9 +63,9 @@
     $db['default'] = array(
                            'dsn'    => '',
                            'hostname' => 'localhost',
-                           'username' => 'root',
-                           'password' => '',
-                           'database' => 'iclouderp_v3_5_maman',
+                           'username' => 'cloudmo2_maman',
+                           'password' => 'CloudNET#168',
+                           'database' => 'cloudmo2_maman_data',
                            'dbdriver' => 'mysqli',
                            'dbprefix' => 'erp_', 
                            'pconnect' => FALSE,

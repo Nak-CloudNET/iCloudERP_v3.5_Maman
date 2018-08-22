@@ -352,7 +352,8 @@ class Site extends CI_Model
         if ($biller_id) {
             if($xls) {
                 $arr_biller = explode('_',$biller_id);
-            } else {                
+            } else {
+                //$arr_biller = explode(',',$biller_id);
                 $arr_biller = $biller_id;
             }
             $this->db->where_in('erp_companies.id', $arr_biller);

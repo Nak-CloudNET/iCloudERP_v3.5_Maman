@@ -1,9 +1,79 @@
 Code,Name,Name KH,Category Code,Unit ID,Cost,Price,Alert Quantity, Tax Rate Name,Tax Method,Subcategory Code,Product Variants Separated by |,Supplier1(No),Supplier2(No),Supplier3(No),Supplier4(No),Supplier5(No),Custom Field 1,Custom Field 2,Custom Field 3,Custom Field 4,Custom Field 5,Custom Field 6,Image,Type(standard or service)
-F00001079,WB5160Whi(Bed),,Furniture,1,,0,,,,,,,,,,,,,,,,,no_image.png,standard
-F00001080,WB210Whi(Bed),,Furniture,1,,0,,,,,,,,,,,,,,,,,,
-F00001081,WB610Whi(Bed),,Furniture,1,,0,,,,,,,,,,,,,,,,,,
-F00001082,WB203Whi(Bed),,Furniture,1,,0,,,,,,,,,,,,,,,,,,
-F00001083,ID1022Draw Chest Honey Beae(Whi),,Furniture,1,,0,,,,,,,,,,,,,,,,,,
-F00001084,ID1264 High Chair Brownie,,Furniture,1,,0,,,,,,,,,,,,,,,,,,
-F00001085,ID1027Easy Classic (White),,Furniture,1,,0,,,,,,,,,,,,,,,,,,
-F00001086,ID1075Smart Lovely Baby(Whi),,Furniture,1,,0,,,,,,,,,,,,,,,,,,
+DR00003411,FT83985Blu100(2-3y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003412,FT83985Blu110(3-4y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003413,FT83985Blu120(4-5y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003414,FT83985Blu130(5-6y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003415,FT83985Blu140(6-7y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003416,FT83985Blu150(7-8y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003417,FT83220Blu100(2-3y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003418,FT83220Blu110(3-4y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003419,FT83220Blu120(4-5y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003420,FT83220Blu130(5-6y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003421,FT83220Blu140(6-7y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003422,FT83220Blu150(7-8y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003423,FT83631Whi100(2-3y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003424,FT83631Whi110(3-4y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003425,FT83631Whi120(4-5y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003426,FT83631Whi130(5-6y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003427,FT83631Whi140(6-7y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003428,FT83631Whi150(7-8y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003429,FT83671Whi100(2-3y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003430,FT83671Whi110(3-4y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003431,FT83671Whi120(4-5y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003432,FT83671Whi130(5-6y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003433,FT83671Whi140(6-7y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003434,FT83671Whi150(7-8y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003435,FT83089Whi100(2-3y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003436,FT83089Whi110(3-4y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003437,FT83089Whi120(4-5y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003438,FT83089Whi130(5-6y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003439,FT83089Whi140(6-7y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003440,FT83089Whi150(7-8y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003441,FT85066Pin100(2-3y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003442,FT85066Pin110(3-4y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003443,FT85066Pin120(4-5y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003444,FT85066Pin130(5-6y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003445,FT85066Pin140(6-7y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003446,FT85066Pin150(7-8y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003447,FT85250Pin100(2-3y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003448,FT85250Pin110(3-4y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003449,FT85250Pin120(4-5y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003450,FT85250Pin130(5-6y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003451,FT85250Pin140(6-7y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003452,FT85250Pin150(7-8y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003453,FT85313Blu100(2-3y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003454,FT85313Blu110(3-4y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003455,FT85313Blu120(4-5y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003456,FT85313Blu130(5-6y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003457,FT85313Blu140(6-7y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003458,FT85313Blu150(7-8y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00002080,FT85249Bla100(2-3y)2-8y,,Shirt Girl,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00002081,FT85249Bla110(3-4y)2-8y,,Shirt Girl,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00002082,FT85249Bla120(4-5y)2-8y,,Shirt Girl,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00002083,FT85249Bla130(5-6y)2-8y,,Shirt Girl,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00002084,FT85249Bla140(6-7y)2-8y,,Shirt Girl,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00002085,FT85249Bla150(7-8y)2-8y,,Shirt Girl,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003459,FT85219Bla100(2-3y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003460,FT85219Bla110(3-4y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003461,FT85219Bla120(4-5y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003462,FT85219Bla130(5-6y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003463,FT85219Bla140(6-7y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003464,FT85219Bla150(7-8y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003465,FT85219Whi100(2-3y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003466,FT85219Whi110(3-4y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003467,FT85219Whi120(4-5y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003468,FT85219Whi130(5-6y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003469,FT85219Whi140(6-7y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003470,FT85219Whi150(7-8y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00002086,FT85249Whi100(2-3y)2-8y,,Shirt Girl,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00002087,FT85249Whi110(3-4y)2-8y,,Shirt Girl,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00002088,FT85249Whi120(4-5y)2-8y,,Shirt Girl,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00002089,FT85249Whi130(5-6y)2-8y,,Shirt Girl,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00002090,FT85249Whi140(6-7y)2-8y,,Shirt Girl,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+SG00002091,FT85249Whi150(7-8y)2-8y,,Shirt Girl,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003471,FT83085Whi100(2-3y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003472,FT83085Whi110(3-4y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003473,FT83085Whi120(4-5y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003474,FT83085Whi130(5-6y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003475,FT83085Whi140(6-7y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard
+DR00003476,FT83085Whi150(7-8y)2-8y,,Dress,1,0,0,,,,,,,,,,,,,,,,,no_image.png,standard

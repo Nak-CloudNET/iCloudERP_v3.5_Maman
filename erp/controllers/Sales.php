@@ -6602,6 +6602,7 @@ class Sales extends MY_Controller
                 $photo = $this->upload->file_name;
                 $data['attachment'] = $photo;
             }
+            //$this->erp->print_arrays($data, $products, $payment);
         }
 
         if ($this->form_validation->run() == true && $return_id = $this->sales_model->returnSale($data, $products, $payment)) {

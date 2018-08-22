@@ -73,7 +73,7 @@
                     <a href="#" id="excel" class="tip" data-action="export_excel" title="<?= lang('download_xls') ?>">
                         <i class="icon fa fa-file-excel-o"></i>
                     </a>
-                </li>
+                </li>                
             </ul>
         </div>
     </div>
