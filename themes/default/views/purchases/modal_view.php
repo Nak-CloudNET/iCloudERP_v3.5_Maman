@@ -163,14 +163,17 @@
                     <tbody>
 
                     <?php $r = 1;
+                    $t_qty=0;
                     $tax_summary = array();
                     if (is_array($rows)) {
+
                         foreach ($rows as $row):
 							if($row->subtotal == 0){
 								$subtotal = lang('free');
 							} else {
 								$subtotal = $this->erp->formatMoney($row->subtotal);
 							}
+							$t_qty+=$row->quantity;
                         ?>
                             <tr>
                                 <td style="text-align:center; width:40px; vertical-align:middle;"><?= $r; ?></td>
@@ -263,6 +266,14 @@
                         echo '<tr><td></td><td colspan="' . $col . '" style="text-align:right; padding-right:10px;">' . $inv->tax_name .'</td><td style="text-align:right; padding-right:10px;">' . $this->erp->formatMoney($inv->order_tax) . '</td></tr>';
                     }
                     ?>
+                    <tr>
+                        <td></td>
+                        <td colspan="<?= $col; ?>"
+                            style="text-align:right; font-weight:bold;"><?= lang("Total_Quantity"); ?>
+
+                        </td>
+                        <td style="text-align:right; padding-right:10px; font-weight:bold;"><?= $this->erp->formatNumber($t_qty); ?></td>
+                    </tr>
                     <tr>
                         <td></td>
                         <td colspan="<?= $col; ?>"
