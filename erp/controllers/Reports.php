@@ -22718,9 +22718,9 @@ class Reports extends MY_Controller
         }
 
         if ($this->input->get('start_date') || $this->input->get('end_date')) {
-		    $sales = $this->db->query("SELECT * FROM ({$sql1} UNION {$sql2}) AS TEMP WHERE 1=1 {$sqls} {$sql4} ORDER BY id DESC ")->result();
+		    $sales = $this->db->query("SELECT * FROM ({$sql1} UNION {$sql2}) AS TEMP WHERE 1=1 {$sqls} {$sql4} ORDER BY date DESC ")->result();
         } else {
-            $sales = $this->db->query("SELECT * FROM ({$sql1} UNION {$sql2}) AS TEMP WHERE 1=1 {$sql3} {$sql4} ORDER BY id DESC ")->result();
+            $sales = $this->db->query("SELECT * FROM ({$sql1} UNION {$sql2}) AS TEMP WHERE 1=1 {$sql3} {$sql4} ORDER BY date DESC ")->result();
         }
 									
 		$this->pagination->initialize($config);
