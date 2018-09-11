@@ -79,23 +79,19 @@
                 {"bSortable": false, "mRender": checkbox}, {
                     "bSortable": false,
                     "mRender": img_hl
-                }, null, null, null, null,null, 
-				<?php if ($Owner || $Admin) { ?>
-                    {"mRender": currencyFormat4},
-                    {"mRender": currencyFormat},
+                }, null, null, null, null,null,
+                <?php if ($Owner || $Admin) { ?>
+                {"mRender": currencyFormat4},
+                {"mRender": currencyFormat},
                 <?php } else { ?>
 
-                    <?php if ($GP['products-cost']) { ?>
-                        <?php if ($this->session->userdata('show_cost')) { ?>
-                            {"mRender": currencyFormat4},
-                        <?php } ?>
-                    <?php } ?>
+                <?php if ($GP['products-cost']) { ?>
+                {"mRender": currencyFormat4},
+                <?php } ?>
 
-                    <?php if ($GP['products-price']) { ?>
-                        <?php if ($this->session->userdata('show_price')) { ?>
-                            {"mRender": currencyFormat},
-                        <?php } ?>
-                    <?php } ?>
+                <?php if ($GP['products-price']) { ?>
+                {"mRender": currencyFormat},
+                <?php } ?>
 
                 <?php } ?>
                 {"mRender": formatQuantity, "bSortable": false}, null, {"mRender": formatQuantity}, {"bSortable": false}
