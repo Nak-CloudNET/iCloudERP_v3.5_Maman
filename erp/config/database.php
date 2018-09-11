@@ -56,18 +56,18 @@
      | The $query_builder variables lets you determine whether or not to load
      | the query builder class.
      */
-    
+
     $active_group = 'default';
     $query_builder = TRUE;
-    
+
     $db['default'] = array(
                            'dsn'    => '',
                            'hostname' => 'localhost',
-                           'username' => 'cloudmo2_maman',
-                           'password' => 'CloudNET#168',
+                           'username' => 'root',
+                           'password' => '',
                            'database' => 'cloudmo2_maman_data',
                            'dbdriver' => 'mysqli',
-                           'dbprefix' => 'erp_', 
+                           'dbprefix' => 'erp_',
                            'pconnect' => FALSE,
                            'db_debug' => TRUE,
                            'cache_on' => FALSE,
@@ -83,7 +83,7 @@
                            'failover' => array(),
                            'save_queries' => FALSE
                            );
-    
-    
+
+
     /* End of file database.php */
     /* Location: ./application/config/database.php */

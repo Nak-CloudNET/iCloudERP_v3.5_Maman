@@ -340,7 +340,7 @@ class Products extends MY_Controller
         } else {
             $category = NULL;
         }
-		if ($this->input->get('product_type')) {
+        if ($this->input->get('product_type')) {
             $product_type = $this->input->get('product_type');
         } else {
             $product_type = NULL;
@@ -360,8 +360,8 @@ class Products extends MY_Controller
         $delete_link = "<a href='products/delete/$1' class='tip po' title='<b>" . $this->lang->line("delete_product") . "</b>' data-content=\"<p>"
             . lang('r_u_sure') . "</p><a class='btn btn-danger' id='a__$1' href='" . site_url('products/delete/$1') . "'>"
             . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
-            . lang('delete_product') . "</a>"; 
-		$edit_link = anchor('products/edit/$1', '<i class="fa fa-edit"></i> ' . lang('edit_product'), 'class="sledit"');
+            . lang('delete_product') . "</a>";
+        $edit_link = anchor('products/edit/$1', '<i class="fa fa-edit"></i> ' . lang('edit_product'), 'class="sledit"');
 
         $single_barcode = anchor_popup('products/single_barcode/$1/' . ($warehouse_id ? $warehouse_id : ''), '<i class="fa fa-print"></i> ' . lang('print_barcode'), $this->popup_attributes);
 
@@ -820,23 +820,27 @@ class Products extends MY_Controller
 
     function add($id = NULL,$param=null)
     {
+
         $this->erp->checkPermissions('add',null,'products');
         $this->load->helper('security');
         $warehouses = $this->site->getAllWarehouses();
         if ($this->input->post('type') == 'standard') {
             $this->form_validation->set_rules('cost', lang("product_cost"), 'required');
         }
+
         if ($this->input->post('barcode_symbology') == 'ean13') {
             $this->form_validation->set_rules('code', lang("product_code"), 'min_length[13]|max_length[13]');
         }
-		$this->form_validation->set_rules('code', lang("product_code"), 'is_unique[products.code]');
+        $this->form_validation->set_rules('code', lang("product_code"), 'is_unique[products.code]');
         $this->form_validation->set_rules('product_image', lang("product_image"), 'xss_clean');
         $this->form_validation->set_rules('digital_file', lang("digital_file"), 'xss_clean');
         $this->form_validation->set_rules('userfile', lang("product_gallery_images"), 'xss_clean');
-		$this->form_validation->set_rules('category',lang('category'),'required');
-		$this->form_validation->set_rules('unit',lang('product_unit'),'required');
-		$warehouse_qty = array();
+        $this->form_validation->set_rules('category',lang('category'),'required');
+        $this->form_validation->set_rules('unit',lang('product_unit'),'required');
+        $warehouse_qty = array();
+
         if ($this->form_validation->run() == true) {
+
             $tax_rate = $this->input->post('tax_rate') ? $this->site->getTaxRateByID($this->input->post('tax_rate')) : NULL;
             if($this->input->post('inactive')) {
 				$inactived = $this->input->post('inactive');
@@ -888,13 +892,13 @@ class Products extends MY_Controller
                 'supplier2_part_no' => $this->input->post('supplier_2_part_no'),
                 'supplier3_part_no' => $this->input->post('supplier_3_part_no'),
                 'supplier4_part_no' => $this->input->post('supplier_4_part_no'),
-                'supplier5_part_no' => $this->input->post('supplier_5_part_no'),           
+                'supplier5_part_no' => $this->input->post('supplier_5_part_no'),
 				'currentcy_code'    => $this->input->post('currency'),
 				'inactived' 		=> $inactived,
 				'service_type'		=> $this->input->post('include_cost'),
 				'brand_id' 			=> $this->input->post('brand')
 			);
-			
+
 			$related_straps = $this->input->post('related_strap');
 			for($i=0; $i<sizeof($related_straps); $i++) {
 				$product_name = $this->site->getProductByCode($related_straps[$i]);
@@ -904,7 +908,7 @@ class Products extends MY_Controller
 											'product_name' => $product_name->name,
 											);
 			}
-			
+
             $this->load->library('upload');
             if ($this->input->post('type') == 'standard') {
                 $wh_total_quantity = 0;
@@ -947,7 +951,7 @@ class Products extends MY_Controller
                 } else {
                     $product_attributes = NULL;
                 }
-				
+
             } else {
                 $warehouse_qty = NULL;
                 $product_attributes = NULL;
@@ -971,7 +975,7 @@ class Products extends MY_Controller
                     }
                     $total_price += $_POST['combo_item_price'][$r] * $_POST['combo_item_quantity_unit'][$r];
                 }
-				
+
                 $data['track_quantity'] = 0;
             } elseif ($this->input->post('type') == 'digital') {
                 $c = sizeof($_POST['combo_item_code']) - 1;
@@ -1154,25 +1158,26 @@ class Products extends MY_Controller
 			else{
 				redirect('products');
 			}
-			
+
         } else {
+
             $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
-			
+
 			$this->data['currencies'] = $this->products_model->getAllCurrencies();
             $this->data['categories'] = $this->site->getAllCategories();
 			$this->data['brands'] = $this->site->getAllBrands();
             $this->data['tax_rates'] = $this->site->getAllTaxRates();
             $this->data['warehouses'] = $warehouses;
-			
+
             $this->data['warehouses_products'] = $id ? $this->products_model->getAllWarehousesWithPQ($id) : NULL;
             $this->data['product'] = $id ? $this->products_model->getProductByID($id) : NULL;
 			$this->data['products'] = $this->site->getAllProducts();
 			$this->data['suppliers'] = $this->products_model->getSuppliers();
-            $this->data['variants'] = $this->products_model->getAllVariants();			
-            $this->data['home_type'] = $this->products_model->gethomeType();			
-			
+            $this->data['variants'] = $this->products_model->getAllVariants();
+            $this->data['home_type'] = $this->products_model->gethomeType();
+
 			/** Project **/
-			
+
 			$this->data['shops'] = $this->products_model->getProjects();
 			$this->data['unit'] = $this->products_model->getUnits();
             $this->data['combo_items'] = ($id && $this->data['product']->type == 'combo') ? $this->products_model->getProductComboItems($id) : NULL;
@@ -1182,6 +1187,7 @@ class Products extends MY_Controller
             $meta = array('page_title' => lang(''), 'bc' => $bc);
 			$this->page_construct('products/add', $meta, $this->data);
         }
+
     }
 
     function suggestions()
@@ -1387,7 +1393,7 @@ class Products extends MY_Controller
             redirect($_SERVER["HTTP_REFERER"]);
         }
         if ($this->input->post('type') == 'standard') {
-           
+
         }
         if ($this->input->post('code') !== $product->code) {
             $this->form_validation->set_rules('code', lang("product_code"), 'is_unique[products.code]');
@@ -1399,12 +1405,15 @@ class Products extends MY_Controller
         $this->form_validation->set_rules('digital_file', lang("digital_file"), 'xss_clean');
         $this->form_validation->set_rules('userfile', lang("product_gallery_images"), 'xss_clean');
 
+
         if ($this->form_validation->run('products/add') == true) {
-			if($this->input->post('inactive')) {
-				$inactived = $this->input->post('inactive');
-			} else {
-				$inactived = 0;
-			}
+
+            if($this->input->post('inactive')) {
+                $inactived = $this->input->post('inactive');
+            } else {
+                $inactived = 0;
+            }
+            echo 'hello';
 			$product_type = $this->input->post('type');
 			$cost_combo_item = $this->input->post('cost_combo_item');
 			$prodcut_cost = $this->erp->formatDecimal($this->input->post('cost'));
