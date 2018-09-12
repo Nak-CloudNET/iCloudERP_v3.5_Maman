@@ -52,6 +52,11 @@
 						echo form_dropdown('categories_note[]', $note, '','id="categories_note" class="form-control" multiple="multiple" style="width:100%;" ');
 					?>
 			</div>
+            <div>
+                <input type="checkbox" id="disable_sale" class="form-control" name="disable_sale" value="1" <?php  echo set_checkbox('disable_sale', '1', $category->disable_sale==1?TRUE:FALSE); ?>>
+                <?= lang("disable_sale", "disable_sale"); ?>
+            </div>
+
             <div class="form-group">
                 <?= lang("category_image", "image") ?>
                 <input id="image" type="file" name="userfile" data-show-upload="false" data-show-preview="false"

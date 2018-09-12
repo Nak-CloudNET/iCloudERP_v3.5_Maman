@@ -1,24 +1,5 @@
 <script>
-    /*$(document).ready(function () {
-        $('#CategoryTable').dataTable({
-            "aaSorting": [[1, "asc"]],
-            "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= lang('all') ?>"]],
-            "iDisplayLength": <?= $Settings->rows_per_page ?>,
-            'bProcessing': true, 'bServerSide': true,
-            'sAjaxSource': '<?= site_url('system_settings/getCategories/'.$parent_id) ?>',
-            'fnServerData': function (sSource, aoData, fnCallback) {
-                aoData.push({
-                    "name": "<?= $this->security->get_csrf_token_name() ?>",
-                    "value": "<?= $this->security->get_csrf_hash() ?>"
-                });
-                $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
-            },
-            "aoColumns": [{"bSortable": false, "mRender": checkbox}, {
-                "bSortable": false,
-                "mRender": img_hl
-            }, null, null, {"bSortable": false}]
-        });
-    });*/
+
 </script>
 <?= form_open('system_settings/category_actions', 'id="action-form"') ?>
 <div class="box">
@@ -205,27 +186,7 @@
             $('#action-form-submit').trigger('click');
         });
 
-        // $('#excel').click(function (e) {
-        //     e.preventDefault();
-        //     $('#form_action').val($(this).attr('data-action'));
-        //     $('#action-form-submit').trigger('click');
-        // });
 
-        // $('#pdf').click(function (e) {
-        //     e.preventDefault();
-        //     $('#form_action').val($(this).attr('data-action'));
-        //     $('#action-form-submit').trigger('click');
-        // });
-        /*$("#excel").click(function(e){
-            e.preventDefault();
-            window.location.href = "<?=site_url('System_settings/getCategoryAll/0/xls/')?>";
-            return false;
-        });
-        $('#pdf').click(function (event) {
-            event.preventDefault();
-            window.location.href = "<?=site_url('System_settings/getCategoryAll/pdf/?v=1'.$v)?>";
-            return false;
-        });*/
 
     });
 </script>

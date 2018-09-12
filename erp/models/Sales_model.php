@@ -10,11 +10,13 @@ class Sales_model extends CI_Model
 
     public function getProductNames($term, $warehouse_id, $standard, $combo, $digital, $service, $category, $limit = 100)
     {
-        $this->db->select('products.id, start_date, end_date, code, name, type, cost, warehouses_products.product_id, warehouses_products.quantity AS qoh, warehouses_products.quantity, price, tax_rate, tax_method, image, promotion, promo_price, product_details, details, subcategory_id, cf1, COALESCE((SELECT GROUP_CONCAT(sp.`serial_number`) FROM erp_serial as sp WHERE sp.product_id='.$this->db->dbprefix('products').'.id), "") as sep')
+        $this->db->select('products.id, products.start_date, products.end_date, products.code, products.name, products.type, cost, warehouses_products.product_id, warehouses_products.quantity AS qoh, warehouses_products.quantity, price, tax_rate, tax_method, products.image, promotion, promo_price, product_details, details, subcategory_id, cf1, COALESCE((SELECT GROUP_CONCAT(sp.`serial_number`) FROM erp_serial as sp WHERE sp.product_id='.$this->db->dbprefix('products').'.id), "") as sep')
 				 ->join('warehouses_products', 'warehouses_products.product_id=products.id', 'left')
+            ->join('categories', 'products.category_id= categories.id', 'left');
+            $this->db->where("categories.disable_sale IS NULL ")
 				 ->group_by('products.id');
         if ($this->Settings->overselling) {
-            $this->db->where("(name LIKE '%" . $term . "%' OR code LIKE '%" . $term . "%' OR  concat(name, ' (', code, ')') LIKE '%" . $term . "%') AND inactived <> 1");
+            $this->db->where("(products.name LIKE '%" . $term . "%' OR products.code LIKE '%" . $term . "%' OR  concat(products.name, ' (', products.code, ')') LIKE '%" . $term . "%') AND inactived <> 1");
 			if($this->Owner || $this->Admin){
 				if($standard != ""){
 					$this->db->where("products.type <> 'standard' ");
@@ -56,7 +58,7 @@ class Sales_model extends CI_Model
 			}
         } else {
             $this->db->where("(products.track_quantity = 0 OR warehouses_products.quantity > 0) AND warehouses_products.warehouse_id = '" . $warehouse_id . "' AND "
-                . "(name LIKE '%" . $term . "%' OR code LIKE '%" . $term . "%' OR  concat(name, ' (', code, ')') LIKE '%" . $term . "%') AND inactived <> 1");
+                . "(products.name LIKE '%" . $term . "%' OR products.code LIKE '%" . $term . "%' OR  concat(erp_products.name, ' (', erp_products.code, ')') LIKE '%" . $term . "%') AND inactived <> 1");
             if ($this->Owner || $this->Admin) {
 				if($standard != ""){
 					$this->db->where("products.type <> 'standard' ");
@@ -211,8 +213,9 @@ class Sales_model extends CI_Model
 		} 
 		else {
 			
-			$this->db->select('products.id, code, name, type, cost, warehouses_products.quantity, price, tax_rate, tax_method, product_details, details, COALESCE((SELECT GROUP_CONCAT(sp.`serial_number`) FROM erp_serial as sp WHERE sp.product_id='.$this->db->dbprefix('products').'.id ), "") as sep, cf1, subcategory_id')
-            ->join('warehouses_products', 'warehouses_products.product_id=products.id', 'left')
+			$this->db->select('products.id, products.code, products.name, products.type, cost, warehouses_products.quantity, price, tax_rate, tax_method, product_details, details, COALESCE((SELECT GROUP_CONCAT(sp.`serial_number`) FROM erp_serial as sp WHERE sp.product_id='.$this->db->dbprefix('products').'.id ), "") as sep, cf1, subcategory_id')
+                ->join('warehouses_products', 'warehouses_products.product_id=products.id', 'left')
+                ->join('categories', 'products.category_id= categories.id', 'left')
             ->group_by('products.id');
 			if($this->Owner || $this->admin){
 				
@@ -233,7 +236,8 @@ class Sales_model extends CI_Model
 					$this->db->where("products.category_id NOT IN (".$category.") ");
 				}
 			}
-			$this->db->where("(code LIKE '%" . $term . "%' OR name LIKE '%" . $term . "%')");
+            $this->db->where("categories.disable_sale IS NULL");
+			$this->db->where("(products.code LIKE '%" . $term . "%' OR products.name LIKE '%" . $term . "%')");
 			
 			$this->db->limit($limit);
 			$q = $this->db->get('products');

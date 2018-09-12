@@ -1672,6 +1672,8 @@ class system_settings extends MY_Controller
             $code = $this->input->post('code');
 			$brand_id = $this->input->post('brand');
 			$categories_note = $this->input->post('categories_note');
+            $disable_sale = $this->input->post('disable_sale');
+
 			$categories_note_id = '';
 			$i = 1;
 			foreach($categories_note as $cate_id){
@@ -1765,7 +1767,9 @@ class system_settings extends MY_Controller
 							'ac_stock' =>  $account_stock,
 							'ac_stock_adj' => $account_stock_adj, 
 							'ac_cost_variant' => $account_cost_variant ,
-							'ac_purchase' => $account_purchase
+							'ac_purchase' => $account_purchase,
+                            'disable_sale' => $disable_sale
+
 							
 						 );
             
@@ -1893,6 +1897,8 @@ class system_settings extends MY_Controller
                 }
                 $i++;
             }
+            $disable_sale=$this->input->post('disable_sale');
+          
 			
 			$data = array(
 				'code' 					=> $this->input->post('code'),
@@ -1905,7 +1911,8 @@ class system_settings extends MY_Controller
 				'ac_stock_adj' 			=> $this->input->post('account_stock_adjust'),
 				'ac_cost_variant' 		=> $this->input->post('account_cost_variant'),
 				'ac_purchase' 			=> $this->input->post('account_purchase'),
-				'type' 					=> $cate_type
+				'type' 					=> $cate_type,
+                'disable_sale' 			=> $this->input->post('disable_sale'),
 			 );
         } elseif ($this->input->post('edit_category')) {
             $this->session->set_flashdata('error', validation_errors());
@@ -1918,7 +1925,6 @@ class system_settings extends MY_Controller
         } else {
             $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
             $category = $this->settings_model->getCategoryByID($id);
-
             $this->data['name'] = array('name' => 'name',
                 'id' => 'name',
                 'type' => 'text',
