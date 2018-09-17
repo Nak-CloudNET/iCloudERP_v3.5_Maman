@@ -99,6 +99,56 @@
 			"aoColumnDefs": [
 			  { "bSearchable": false, "aTargets": [9] }
 			],
+            "fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay) {
+                var total_qty = 0;
+
+                for (var i = 0; i < aaData.length; i++) {
+                    <?php if ($Owner || $Admin) { ?>
+                        total_qty     += parseFloat(aaData[aiDisplay[i]][9]);
+                    <?php } else { ?>
+                        <?php if ($GP['products-cost'] && $GP['products-price']) { ?>
+                            <?php if($this->session->userdata('show_cost') && $this->session->userdata('show_price')){ ?>
+                                total_qty     += parseFloat(aaData[aiDisplay[i]][9]);
+                            <?php } ?>
+                        <?php } elseif ($GP['products-cost']) { ?>
+                            <?php if($this->session->userdata('show_cost')) { ?>
+                                total_qty     += parseFloat(aaData[aiDisplay[i]][8]);
+                            <?php } ?>
+                        <?php } elseif ($GP['products-price']) { ?>
+                            <?php if($this->session->userdata('show_price')){ ?>
+                        total_qty     += parseFloat(aaData[aiDisplay[i]][8]);
+                        <?php } ?>
+                        <?php } else { ?>
+                            <?php if(!$this->session->userdata('show_cost') || !$this->session->userdata('show_price')) { ?>
+                                total_qty     += parseFloat(aaData[aiDisplay[i]][7]);
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
+                }
+                var nCells = nRow.getElementsByTagName('th');
+                <?php if ($Owner || $Admin) { ?>
+                    nCells[9].innerHTML = formatQuantity(parseFloat(total_qty));
+                <?php } else { ?>
+
+                    <?php if ($GP['products-cost'] && $GP['products-price']) { ?>
+                        <?php if($this->session->userdata('show_cost') && $this->session->userdata('show_price')){ ?>
+                            nCells[9].innerHTML = formatQuantity(parseFloat(total_qty));
+                        <?php } ?>
+                    <?php } elseif ($GP['products-cost']) { ?>
+                        <?php if($this->session->userdata('show_cost')) { ?>
+                            nCells[8].innerHTML = formatQuantity(parseFloat(total_qty));
+                        <?php } ?>
+                    <?php } elseif ($GP['products-price']) { ?>
+                        <?php if($this->session->userdata('show_price')){ ?>
+                            nCells[8].innerHTML = formatQuantity(parseFloat(total_qty));
+                        <?php } ?>
+                    <?php } else { ?>
+                        <?php if(!$this->session->userdata('show_cost') || !$this->session->userdata('show_price')) { ?>
+                            nCells[7].innerHTML = formatQuantity(parseFloat(total_qty));
+                        <?php } ?>
+                    <?php } ?>
+                <?php } ?>
+            }
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 2, filter_default_label: "[<?=lang('product_code');?>]", filter_type: "text", data: []},
             {column_number: 3, filter_default_label: "[<?=lang('product_name');?>]", filter_type: "text", data: []},
@@ -109,7 +159,7 @@
             <?php if ($Owner || $Admin) { ?>
                 {column_number: 7, filter_default_label: "[<?=lang('product_cost');?>]", filter_type: "text", data: []},
                 {column_number: 8, filter_default_label: "[<?=lang('product_price');?>]", filter_type: "text", data: []},
-                {column_number: 9, filter_default_label: "[<?=lang('quantity');?>]", filter_type: "text", data: []},
+
                 {column_number: 10, filter_default_label: "[<?=lang('product_unit');?>]", filter_type: "text", data: []},
                 {column_number: 11, filter_default_label: "[<?=lang('alert_quantity');?>]", filter_type: "text", data: []}
             <?php } else { ?>
@@ -117,27 +167,27 @@
                     <?php if($this->session->userdata('show_cost') && $this->session->userdata('show_price')){ ?>
                         {column_number: 7, filter_default_label: "[<?=lang('product_cost');?>]", filter_type: "text", data: []},
 		                {column_number: 8, filter_default_label: "[<?=lang('product_price');?>]", filter_type: "text", data: []},
-		                {column_number: 9, filter_default_label: "[<?=lang('quantity');?>]", filter_type: "text", data: []},
+
 		                {column_number: 10, filter_default_label: "[<?=lang('product_unit');?>]", filter_type: "text", data: []},
 		                {column_number: 11, filter_default_label: "[<?=lang('alert_quantity');?>]", filter_type: "text", data: []}
                     <?php } ?>
                 <?php } elseif ($GP['products-cost']) { ?>
                             <?php if($this->session->userdata('show_cost')) { ?>
                                 {column_number: 7, filter_default_label: "[<?=lang('product_cost');?>]", filter_type: "text", data: []},
-                                {column_number: 8, filter_default_label: "[<?=lang('quantity');?>]", filter_type: "text", data: []},
+
                                 {column_number: 9, filter_default_label: "[<?=lang('product_unit');?>]", filter_type: "text", data: []},
                                 {column_number: 10, filter_default_label: "[<?=lang('alert_quantity');?>]", filter_type: "text", data: []}
                             <?php } ?>
                 <?php } elseif ($GP['products-price']) { ?>
                             <?php if($this->session->userdata('show_price')){ ?>
                                 {column_number: 7, filter_default_label: "[<?=lang('product_price');?>]", filter_type: "text", data: []},
-                                {column_number: 8, filter_default_label: "[<?=lang('quantity');?>]", filter_type: "text", data: []},
+
                                 {column_number: 9, filter_default_label: "[<?=lang('product_unit');?>]", filter_type: "text", data: []},
                                 {column_number: 10, filter_default_label: "[<?=lang('alert_quantity');?>]", filter_type: "text", data: []}
                         <?php } ?>
                 <?php } else { ?>
                         <?php if(!$this->session->userdata('show_cost') || !$this->session->userdata('show_price')) { ?>
-                            {column_number: 7, filter_default_label: "[<?=lang('quantity');?>]", filter_type: "text", data: []},
+
                             {column_number: 8, filter_default_label: "[<?=lang('product_unit');?>]", filter_type: "text", data: []},
                             {column_number: 9, filter_default_label: "[<?=lang('alert_quantity');?>]", filter_type: "text", data: []}
                         <?php } ?>
