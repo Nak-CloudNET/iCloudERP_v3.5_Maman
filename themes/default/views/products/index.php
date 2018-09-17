@@ -125,6 +125,7 @@
                         <?php } ?>
                     <?php } ?>
                 }
+
                 var nCells = nRow.getElementsByTagName('th');
                 <?php if ($Owner || $Admin) { ?>
                     nCells[9].innerHTML = formatQuantity(parseFloat(total_qty));
