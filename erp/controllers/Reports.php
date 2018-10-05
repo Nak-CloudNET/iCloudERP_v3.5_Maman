@@ -4474,7 +4474,7 @@ class Reports extends MY_Controller
             $this->session->set_userdata('biller_id',$biller);
             $this->data['biller']=$this->companies_model->getCompanyByID($biller);
         } else {
-            $biller = $this->session->userdata('biller_id');
+            //$biller = $this->session->userdata('biller_id');
         }
         $this->data['biller_id']=$biller;
         if (!$year) {

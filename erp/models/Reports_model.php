@@ -1031,6 +1031,7 @@ ORDER BY
     }
     public function getDailySalesByBiller($year, $month,$biller)
     {
+       // echo $biller;exit;
         $biller=$biller?' AND erp_sales.biller_id='.$biller:'';
         $myQuery = "SELECT DATE_FORMAT( erp_sales.date,  '%e' ) AS date, 
 		SUM( COALESCE( erp_sales.product_tax, 0 ) ) AS tax1, 
