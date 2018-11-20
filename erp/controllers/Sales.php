@@ -11394,6 +11394,7 @@ class Sales extends MY_Controller
 		$currency 		= $this->sales_model->getCurrency();
 		$us_currency 	= $this->sales_model->getUSCurrency();
 		$expiry_status  = 0;
+	
 		if($this->site->get_setting()->product_expiry == 1){
 			$expiry_status = 1;
 		}
@@ -11405,7 +11406,7 @@ class Sales extends MY_Controller
                 $row->quantity 			= 0;
                 $row->item_tax_method 	= $row->tax_method;
                 $row->qty 				= 1;
-                $row->discount 			= '0';
+                $row->discount 			= $row->discount_by_item;
                 $row->serial 			= '';
                 $options 				= $this->sales_model->getProductOptions($row->id, $warehouse_id);
 				$orderqty 				= $this->sales_model->getQtyOrder($row->product_id); 
@@ -11620,6 +11621,7 @@ class Sales extends MY_Controller
         $customer_group = $this->site->getCustomerGroupByID($customer->customer_group_id);
 		$user_setting 	= $this->site->getUserSetting($this->session->userdata('user_id'));
 		$rows 			= $this->sales_model->getProductNames($sr, $warehouse_id, $user_setting->sales_standard, $user_setting->sales_combo, $user_setting->sales_digital, $user_setting->sales_service, $user_setting->sales_category);
+
 		$expiry_status = 0;
 		if($this->site->get_setting()->product_expiry == 1){
 			$expiry_status = 1;
@@ -11631,7 +11633,7 @@ class Sales extends MY_Controller
 				$row->quantity = 0;
 				$row->item_tax_method = $row->tax_method;
 				$row->qty = 1;
-				$row->discount = '0';
+				$row->discount = $row->discount_by_item;
 				$row->serial = '';
 				$options = $this->sales_model->getProductOptions($row->id, $warehouse_id);
 				$group_prices = $this->sales_model->getProductPriceGroupId($row->id, $customer->price_group_id);
@@ -11823,7 +11825,7 @@ class Sales extends MY_Controller
 		//$customer_group = $this->site->getMakeupCostByCompanyID($customer_id);
 		$user_setting = $this->site->getUserSetting($this->session->userdata('user_id'));
         $rows = $this->sales_model->getProductNumber($sr, $warehouse_id, $user_setting->sales_standard, $user_setting->sales_combo, $user_setting->sales_digital, $user_setting->sales_service, $user_setting->sales_category);
-		$expiry_status = 0;
+        $expiry_status = 0;
 		if($this->site->get_setting()->product_expiry == 1){
 			$expiry_status = 1;
 		}
@@ -11833,7 +11835,8 @@ class Sales extends MY_Controller
                 $row->quantity = 0;
                 $row->item_tax_method = $row->tax_method;
                 $row->qty = 1;
-                $row->discount = '0';
+                $row->discount = $row->discount_by_item;
+
                 $row->serial = '';
                 $options = $this->sales_model->getProductOptions($row->id, $warehouse_id);
 				

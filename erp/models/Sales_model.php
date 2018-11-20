@@ -10,7 +10,7 @@ class Sales_model extends CI_Model
 
     public function getProductNames($term, $warehouse_id, $standard, $combo, $digital, $service, $category, $limit = 100)
     {
-        $this->db->select('products.id, products.start_date, products.end_date, products.code, products.name, products.type, cost, warehouses_products.product_id, warehouses_products.quantity AS qoh, warehouses_products.quantity, price, tax_rate, tax_method, products.image, promotion, promo_price, product_details, details, subcategory_id, cf1, COALESCE((SELECT GROUP_CONCAT(sp.`serial_number`) FROM erp_serial as sp WHERE sp.product_id='.$this->db->dbprefix('products').'.id), "") as sep')
+        $this->db->select('products.id, products.start_date, products.end_date, products.code, products.name, products.type, cost, warehouses_products.product_id, warehouses_products.quantity AS qoh, warehouses_products.quantity, price,discount_by_item, tax_rate, tax_method, products.image, promotion, promo_price, product_details, details, subcategory_id, cf1, COALESCE((SELECT GROUP_CONCAT(sp.`serial_number`) FROM erp_serial as sp WHERE sp.product_id='.$this->db->dbprefix('products').'.id), "") as sep')
 				 ->join('warehouses_products', 'warehouses_products.product_id=products.id', 'left')
             ->join('categories', 'products.category_id= categories.id', 'left');
             $this->db->where("categories.disable_sale IS NULL ")
@@ -177,7 +177,7 @@ class Sales_model extends CI_Model
 		{
 			$name = explode(" ", $term);
 			$first = $name[0];
-			$this->db->select('products.id, code, name, type, cost,warehouses_products.quantity, price, tax_rate, tax_method, cf1, product_details,subcategory_id, details,COALESCE((SELECT GROUP_CONCAT(sp.`serial_number`) 
+			$this->db->select('products.id, code, name, type, cost,warehouses_products.quantity, price,discount_by_item, tax_rate, tax_method, cf1, product_details,subcategory_id, details,COALESCE((SELECT GROUP_CONCAT(sp.`serial_number`) 
 					FROM erp_serial as sp
 				 WHERE sp.product_id='.$this->db->dbprefix('products').'.id
 				), "") as sep')
@@ -213,7 +213,7 @@ class Sales_model extends CI_Model
 		} 
 		else {
 			
-			$this->db->select('products.id, products.code, products.name, products.type, cost, warehouses_products.quantity, price, tax_rate, tax_method, product_details, details, COALESCE((SELECT GROUP_CONCAT(sp.`serial_number`) FROM erp_serial as sp WHERE sp.product_id='.$this->db->dbprefix('products').'.id ), "") as sep, cf1, subcategory_id')
+			$this->db->select('products.id, products.code, products.name, products.type, cost, warehouses_products.quantity, price,discount_by_item, tax_rate, tax_method, product_details, details, COALESCE((SELECT GROUP_CONCAT(sp.`serial_number`) FROM erp_serial as sp WHERE sp.product_id='.$this->db->dbprefix('products').'.id ), "") as sep, cf1, subcategory_id')
                 ->join('warehouses_products', 'warehouses_products.product_id=products.id', 'left')
                 ->join('categories', 'products.category_id= categories.id', 'left')
             ->group_by('products.id');

@@ -292,7 +292,10 @@ if (!empty($variants)) {
                         <?= lang("product_price", "price") ?>
                         <?= form_input('price', (isset($_POST['price']) ? $_POST['price'] : ($product ? $this->erp->formatDecimal($product->price) : '')), 'class="form-control tip number_only"  id="price" required="required"') ?>
                     </div>
-					
+                    <div class="form-group all">
+                        <?= lang("product_discount", "discount") ?>
+                        <?= form_input('discount', (isset($_POST['discount']) ? $_POST['discount'] : ($product ? $product->discount : '')), 'class="form-control" id="name" '); ?>
+                    </div>
 					<div class="form-group">
 						<label class="control-label" for="currency"><?= lang("default_currency"); ?></label>
 						<div class="controls"> 

@@ -896,7 +896,8 @@ class Products extends MY_Controller
 				'currentcy_code'    => $this->input->post('currency'),
 				'inactived' 		=> $inactived,
 				'service_type'		=> $this->input->post('include_cost'),
-				'brand_id' 			=> $this->input->post('brand')
+				'brand_id' 			=> $this->input->post('brand'),
+                'discount_by_item' 	=> $this->input->post('discount')
 			);
 
 			$related_straps = $this->input->post('related_strap');
@@ -1463,7 +1464,8 @@ class Products extends MY_Controller
                 'supplier5_part_no' => $this->input->post('supplier_5_part_no'), 
 				'currentcy_code'    => $this->input->post('currency'),
 				'inactived' 		=> $inactived,
-				'brand_id'  		=> $this->input->post('brand')
+				'brand_id'  		=> $this->input->post('brand'),
+                'discount_by_item'  => $this->input->post('discount')
 			);
 			
 			$related_straps = $this->input->post('related_strap');

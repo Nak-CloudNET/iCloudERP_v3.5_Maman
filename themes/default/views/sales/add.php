@@ -17,7 +17,7 @@
 <script type="text/javascript">
     var count = 1, an = 1, product_variant = 0, DT = <?= $Settings->default_tax_rate ?>,
         product_tax = 0, invoice_tax = 0, total_discount = 0, total = 0, allow_discount = <?= ($Owner || $Admin || $this->session->userdata('allow_discount')) ? 1 : 0; ?>,
-        tax_rates = <?php echo json_encode($tax_rates); ?>;
+        tax_rates = <?php echo json_encode($tax_rates);?>;
 
     $(document).ready(function () {
 		var test2 = '<?=$this->session->userdata('remove_s2');?>';
@@ -141,7 +141,7 @@
 		__setItem('delivery_by', '<?= $sale_order->delivery_by ?>');
 		__setItem('slarea', '<?= $sale_order->group_areas_id ?>');
 		//__setItem('payment_status', '<?= $sale_order->payment_status ?>');
-        __setItem('slitems', JSON.stringify(<?= $sale_order_items; ?>));
+        __setItem('slitems', JSON.stringify(<?= $sale_order_items;  ?>));
 		__setItem('payment_deposit', JSON.stringify(<?= (isset($payment_deposit)?$payment_deposit:""); ?>));
 		__setItem('sale_order_ref', '<?= $sale_order->reference_no ?>');
 		__setItem('grand_total', '<?= $sale_order->grand_total ?>');

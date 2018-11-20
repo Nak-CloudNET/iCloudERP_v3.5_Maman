@@ -1114,7 +1114,7 @@ class Site extends CI_Model
     }
 	
 	public function getProductByIDWh($id,$warehouse_id) {
-        $this->db->select('products.*,warehouses_products.quantity ,warehouses_products.quantity AS qoh, units.name as unit, products.unit as unit_id, sale_order_items.quantity_received as qty_received');
+        $this->db->select('products.*,warehouses_products.quantity ,warehouses_products.quantity AS qoh, discount_by_item,units.name as unit, products.unit as unit_id, sale_order_items.quantity_received as qty_received');
 		$this->db->from('products');
         $this->db->join('units', 'units.id = products.unit', 'left');
 		$this->db->join('warehouses_products','warehouses_products.product_id=products.id','left');
@@ -1129,7 +1129,7 @@ class Site extends CI_Model
     }
 	
 	public function getProductAllByID($id) {
-        $this->db->select('products.*');        
+        $this->db->select('products.*');
         $q = $this->db->get_where('products', array('products.id' => $id), 1);
         if ($q->num_rows() > 0) {
             return $q->row();
