@@ -329,6 +329,14 @@ class Products extends MY_Controller
 
     function getProducts($warehouse_id = NULL)
     {
+        if (!$this->Owner && !$this->Admin) {
+            $gp = $this->site->checkPermissions();
+            $this->permission = $gp[0];
+            $this->permission[] = $gp[0];
+        } else {
+            $this->permission[] = NULL;
+        }
+
         $this->erp->checkPermissions('index',null,'products');
         if ($this->input->get('product')) {
             $product = $this->input->get('product');

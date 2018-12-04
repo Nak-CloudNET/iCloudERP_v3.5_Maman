@@ -65,7 +65,7 @@
        'hostname' => 'localhost',
        'username' => 'root',
        'password' => '',
-       'database' => 'cloudmo2_maman_data',
+       'database' => 'maman',
        'dbdriver' => 'mysqli',
        'dbprefix' => 'erp_',
        'pconnect' => FALSE,
