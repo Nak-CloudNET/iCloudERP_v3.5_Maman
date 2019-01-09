@@ -65,7 +65,7 @@
        'hostname' => 'localhost',
        'username' => 'root',
        'password' => '',
-       'database' => 'maman',
+       'database' => 'maman_test',
        'dbdriver' => 'mysqli',
        'dbprefix' => 'erp_',
        'pconnect' => FALSE,

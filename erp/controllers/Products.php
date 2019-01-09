@@ -1702,7 +1702,7 @@ class Products extends MY_Controller
             $this->data['warehouses'] 			= $warehouses;
             $this->data['warehouses_products'] 	= $warehouses_products;
             $this->data['product'] 				= $product;
-			$this->data['products'] 			= $this->site->getAllProducts();
+//			$this->data['products'] 			= $this->site->getAllProducts();
 			$this->data['straps'] 				= $this->products_model->getStrapByProductID($product->code);
 			$this->data['suppliers']            = $this->products_model->getSuppliers();
             $this->data['variants'] 			= $this->products_model->getAllVariants();

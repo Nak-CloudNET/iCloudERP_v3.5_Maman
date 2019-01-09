@@ -2591,7 +2591,7 @@ class Site extends CI_Model
 				
 				$paid = -1 * abs($paid);
 			}else{
-				if($sale->paid == 0 && $sale->grand_total == 0){
+				if($this->erp->formatDecimal($sale->paid,2) == 0 && $this->erp->formatDecimal($sale->grand_total,2) == 0){
 					$payment_status = 'paid';
 					$sale_status = 'completed';
 				}else{
