@@ -552,7 +552,7 @@ class Pos_model extends CI_Model
 								$payment_term = 0;
 								$paid = -1 * abs($paid);
 							}else{
-								if($data['paid'] == 0 && $data['grand_total'] == 0){
+								if($data['paid'] == 0 || $data['grand_total'] == 0){
 									$payment_status = 'paid';
 								}else{
 									$payment_status = 'due';
@@ -1813,7 +1813,7 @@ class Pos_model extends CI_Model
 				$deposit_balance = $deposit->deposit_amount;
 				$deposit_balance = $deposit_balance - abs($payment['amount']);
 				if($this->db->update('companies', array('deposit_amount' => $deposit_balance), array('id' => $customer_id))){
-					$this->db->update('deposits', array('amount' => $deposit_balance), array('company_id' => customer_id));
+					$this->db->update('deposits', array('amount' => $deposit_balance), array('company_id' => $customer_id));
 				}
 			}
 			

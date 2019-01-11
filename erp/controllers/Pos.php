@@ -432,7 +432,7 @@ class Pos extends MY_Controller
             $total_items 		= $this->input->post('total_items');
             $sale_status        = $this->input->post('sale_status');
             $bank_account 		= $this->input->post('bank_account');            
-            $payment_status 	= 'due';
+            $payment_status     = 'due';
             $payment_term 		= 0;
             $due_date 			= date('Y-m-d', strtotime('+' . $payment_term . ' days'));
             $shipping 			= $this->input->post('shipping') ? $this->input->post('shipping') : 0;
@@ -663,6 +663,10 @@ class Pos extends MY_Controller
             } else {
                 $query = $i;
             }
+
+            if ($paidd == $grand_total) {
+                $payment_status = 'paid';
+            }            
             			
             $data = array(
                 'date'              => $date,
@@ -704,6 +708,7 @@ class Pos extends MY_Controller
 				'type_id'           => $this->input->post('sale_type_id'),
 				'queue'             => $query
             );
+            // $this->erp->print_arrays($data);
            
 			if($_POST['paid_by'][0] == 'depreciation'){
 				$no = sizeof($_POST['no']);
@@ -742,7 +747,7 @@ class Pos extends MY_Controller
                     $residuals  = $g_total - $paid;
                     if (($g_total - $pos_b) > 0) {
                         $amount = $paid;
-                    } else {
+                    }else {
                         $amount = $paid - abs($residuals);
                     }
 
@@ -2914,7 +2919,6 @@ class Pos extends MY_Controller
 				$this->data['reference'] = $this->site->getReference('sp',$sale->biller_id);
 			}
 			
-			
             $this->data['modal_js'] = $this->site->modal_js();
 			$this->data['customers'] = $this->site->getCustomers();
 			$this->data['bankAccounts'] =  $this->site->getAllBankAccounts();
@@ -2922,7 +2926,6 @@ class Pos extends MY_Controller
         }
     }
 	
-
     function add_payment_old($id = NULL)
     {
         $this->erp->checkPermissions('payments', true, 'sales');
